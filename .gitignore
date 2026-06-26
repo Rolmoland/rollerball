@@ -1,0 +1,56 @@
+# ============================================================
+# Build output
+# ============================================================
+M33/Debug/
+M33/build/
+M33/**/*.o
+M33/**/*.d
+M33/**/*.a
+M33/rtthread.elf
+M33/rtthread.map
+M33/rtthread.hex
+M33/rtthread.bin
+
+# ============================================================
+# RT-Thread Studio / Eclipse IDE
+# ============================================================
+M33/.settings/
+M33/.cproject
+M33/.project
+M33/makefile.targets
+
+# ============================================================
+# Python build system artifacts
+# ============================================================
+M33/rtconfig.py
+M33/rtconfig.pyc
+M33/rtconfig_preinc.h
+M33/**/__pycache__/
+M33/**/*.pyc
+
+# ============================================================
+# Infineon device configurator generated files
+# (regenerated from .mtbx / device-configurator on each setup)
+# ============================================================
+M33/libs/TARGET_APP_KIT_PSE84_EVAL_EPC2/config/GeneratedSource/
+
+# ============================================================
+# Symbolic link batch (Windows-only setup script, not cross-platform)
+# ============================================================
+M33/mklinks.bat
+
+# ============================================================
+# OS / editor
+# ============================================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.claude/
+doc/
+
+# ============================================================
+# Root-level planning docs (local only)
+# ============================================================
+/*.md

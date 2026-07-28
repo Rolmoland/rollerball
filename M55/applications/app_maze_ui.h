@@ -21,5 +21,6 @@ typedef struct
 
 void maze_ui_init(void);
 void maze_ui_update(const maze_ui_state_t *state);
+void maze_ui_set_demo_count(rt_uint16_t count);
 
 #endif /* __APP_MAZE_UI_H__ */

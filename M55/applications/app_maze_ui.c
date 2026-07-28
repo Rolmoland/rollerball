@@ -2,30 +2,12 @@
 #include <string.h>
 #include "app_ball_ui.h"
 #include "app_maze_ui.h"
+#include "module_maze_env.h"
 
 #define MAZE_SIZE        10
 #define MAZE_CELL_PX     40
 #define MAZE_ORIGIN_X    56
 #define MAZE_ORIGIN_Y    96
-
-#define CELL_EMPTY       0
-#define CELL_WALL        1
-#define CELL_START       2
-#define CELL_GOAL        3
-
-static const rt_uint8_t s_map_0[MAZE_SIZE][MAZE_SIZE] =
-{
-    {2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 1, 1, 0, 1, 1, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 1, 1, 1, 0, 1, 1, 1, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-    {0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-};
 
 static lv_obj_t *s_table;
 static lv_obj_t *s_status_label;
@@ -33,7 +15,16 @@ static lv_obj_t *s_stats_label;
 static lv_obj_t *s_complete_panel;
 static maze_ui_state_t s_state;
 static rt_uint8_t s_visited[MAZE_SIZE][MAZE_SIZE];
+static rt_uint16_t s_demo_count;
 static rt_bool_t s_ready = RT_FALSE;
+
+static void set_status_text(void)
+{
+    lv_label_set_text_fmt(s_status_label, "MAP %u  %s  DEMO N=%u",
+                          s_state.map_id,
+                          s_state.done ? "COMPLETE" : "RUNNING",
+                          s_demo_count);
+}
 
 static void maze_draw_event(lv_event_t *event)
 {
@@ -43,7 +34,7 @@ static void maze_draw_event(lv_event_t *event)
     lv_draw_label_dsc_t *label;
     rt_uint32_t row;
     rt_uint32_t col;
-    rt_uint8_t cell;
+    maze_env_cell_t cell;
     lv_color_t bg;
     lv_color_t fg = lv_color_hex(0x202020);
 
@@ -59,17 +50,17 @@ static void maze_draw_event(lv_event_t *event)
         return;
     }
 
-    cell = s_map_0[row][col];
-    if (cell == CELL_WALL)
+    cell = maze_env_cell_at(0, col, row);
+    if (cell == MAZE_ENV_CELL_WALL)
     {
         bg = lv_color_hex(0x263238);
         fg = lv_color_hex(0xFFFFFF);
     }
-    else if (cell == CELL_START)
+    else if (cell == MAZE_ENV_CELL_START)
     {
         bg = lv_color_hex(0x81C784);
     }
-    else if (cell == CELL_GOAL)
+    else if (cell == MAZE_ENV_CELL_GOAL)
     {
         bg = lv_color_hex(0xFFD54F);
     }
@@ -118,7 +109,8 @@ void maze_ui_init(void)
 
     s_status_label = lv_label_create(lv_screen_active());
     lv_obj_set_pos(s_status_label, MAZE_ORIGIN_X, 32);
-    lv_label_set_text(s_status_label, "MAP 0  READY");
+    lv_label_set_text_fmt(s_status_label, "MAP 0  READY  DEMO N=%u",
+                          s_demo_count);
 
     s_table = lv_table_create(lv_screen_active());
     lv_table_set_row_count(s_table, MAZE_SIZE);
@@ -132,8 +124,9 @@ void maze_ui_init(void)
         for (col = 0; col < MAZE_SIZE; col++)
         {
             const char *text = "";
-            if (s_map_0[row][col] == CELL_START) text = "S";
-            if (s_map_0[row][col] == CELL_GOAL) text = "G";
+            maze_env_cell_t cell = maze_env_cell_at(0, col, row);
+            if (cell == MAZE_ENV_CELL_START) text = "S";
+            if (cell == MAZE_ENV_CELL_GOAL) text = "G";
             lv_table_set_cell_value(s_table, row, col, text);
         }
     }
@@ -200,8 +193,7 @@ void maze_ui_update(const maze_ui_state_t *state)
     s_state = *state;
 
     ball_ui_set_cell_locked(state->agent_x, state->agent_y);
-    lv_label_set_text_fmt(s_status_label, "MAP %u  %s",
-                          state->map_id, state->done ? "COMPLETE" : "RUNNING");
+    set_status_text();
     set_reward_text(s_stats_label, state);
     if (state->done)
     {
@@ -213,5 +205,19 @@ void maze_ui_update(const maze_ui_state_t *state)
         lv_obj_add_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
     }
     lv_obj_invalidate(s_table);
+    lv_unlock();
+}
+
+void maze_ui_set_demo_count(rt_uint16_t count)
+{
+    if (!s_ready)
+    {
+        s_demo_count = count;
+        return;
+    }
+
+    lv_lock();
+    s_demo_count = count;
+    set_status_text();
     lv_unlock();
 }

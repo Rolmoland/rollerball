@@ -6,6 +6,7 @@
 
 #define MAZE_SAMPLE_MS 50
 #define MAZE_RESET_PIN GET_PIN(CYBSP_USER_BTN_PORT_NUM, CYBSP_USER_BTN_PIN)
+#define MAZE_TRANSITION_QUEUE_SIZE 16
 
 static maze_t g_maze;
 static struct rt_mutex g_maze_lock;
@@ -14,6 +15,19 @@ static rt_uint8_t g_last_action = ACTION_NONE;
 static rt_uint8_t g_last_result = MAZE_STEP_NONE;
 static float g_last_reward = 0.0f;
 static rt_uint32_t g_revision = 0;
+static volatile rt_bool_t g_reset_requested = RT_FALSE;
+static maze_transition_t g_transition_queue[MAZE_TRANSITION_QUEUE_SIZE];
+static rt_uint8_t g_transition_head = 0;
+static rt_uint8_t g_transition_tail = 0;
+static rt_uint8_t g_transition_count = 0;
+static rt_uint16_t g_episode_id = 1;
+static rt_uint32_t g_transition_id = 0;
+
+static void maze_reset_button_irq(void *args)
+{
+    (void)args;
+    g_reset_requested = RT_TRUE;
+}
 
 static maze_action_t gesture_to_action(gesture_dir_t gesture)
 {
@@ -27,6 +41,19 @@ static maze_action_t gesture_to_action(gesture_dir_t gesture)
     }
 }
 
+static void transition_push(const maze_transition_t *transition)
+{
+    if (g_transition_count == MAZE_TRANSITION_QUEUE_SIZE)
+    {
+        g_transition_tail = (g_transition_tail + 1U) % MAZE_TRANSITION_QUEUE_SIZE;
+        g_transition_count--;
+    }
+
+    g_transition_queue[g_transition_head] = *transition;
+    g_transition_head = (g_transition_head + 1U) % MAZE_TRANSITION_QUEUE_SIZE;
+    g_transition_count++;
+}
+
 static void maze_thread_entry(void *parameter)
 {
     rt_bool_t armed = RT_TRUE;
@@ -38,8 +65,9 @@ static void maze_thread_entry(void *parameter)
         rt_base_t button = rt_pin_read(MAZE_RESET_PIN);
         gesture_dir_t gesture = gesture_get();
 
-        if (previous_button == PIN_HIGH && button == PIN_LOW)
+        if (g_reset_requested || (previous_button == PIN_HIGH && button == PIN_LOW))
         {
+            g_reset_requested = RT_FALSE;
             maze_app_reset();
             armed = RT_FALSE;
             rt_kprintf("[MAZE] reset by SW2\n");
@@ -57,8 +85,23 @@ static void maze_thread_entry(void *parameter)
             rt_mutex_take(&g_maze_lock, RT_WAITING_FOREVER);
             if (!maze_is_done(&g_maze))
             {
+                maze_transition_t transition;
+
+                transition.state_x = g_maze.agent_x;
+                transition.state_y = g_maze.agent_y;
                 g_last_action = action;
                 g_last_result = (rt_uint8_t)maze_step(&g_maze, action, &g_last_reward);
+                transition.next_x = g_maze.agent_x;
+                transition.next_y = g_maze.agent_y;
+                transition.map_id = g_maze.current_map_id;
+                transition.action = g_last_action;
+                transition.result = g_last_result;
+                transition.done = (rt_uint8_t)maze_is_done(&g_maze);
+                transition.episode_id = g_episode_id;
+                transition.step_index = g_maze.total_steps;
+                transition.reward = g_last_reward;
+                transition.transition_id = ++g_transition_id;
+                transition_push(&transition);
                 g_revision++;
             }
             rt_mutex_release(&g_maze_lock);
@@ -96,6 +139,29 @@ rt_err_t maze_app_get_snapshot(maze_app_snapshot_t *snapshot)
     return RT_EOK;
 }
 
+rt_err_t maze_app_take_transition(maze_transition_t *transition)
+{
+    RT_ASSERT(transition != RT_NULL);
+
+    if (!g_maze_ready)
+    {
+        return -RT_EBUSY;
+    }
+
+    rt_mutex_take(&g_maze_lock, RT_WAITING_FOREVER);
+    if (g_transition_count == 0)
+    {
+        rt_mutex_release(&g_maze_lock);
+        return -RT_ERROR;
+    }
+
+    *transition = g_transition_queue[g_transition_tail];
+    g_transition_tail = (g_transition_tail + 1U) % MAZE_TRANSITION_QUEUE_SIZE;
+    g_transition_count--;
+    rt_mutex_release(&g_maze_lock);
+    return RT_EOK;
+}
+
 void maze_app_reset(void)
 {
     rt_mutex_take(&g_maze_lock, RT_WAITING_FOREVER);
@@ -103,6 +169,7 @@ void maze_app_reset(void)
     g_last_action = ACTION_NONE;
     g_last_result = MAZE_STEP_NONE;
     g_last_reward = 0.0f;
+    g_episode_id++;
     g_revision++;
     rt_mutex_release(&g_maze_lock);
 }
@@ -138,6 +205,11 @@ static int app_maze_init(void)
 
     rt_mutex_init(&g_maze_lock, "maze_lock", RT_IPC_FLAG_PRIO);
     rt_pin_mode(MAZE_RESET_PIN, PIN_MODE_INPUT_PULLUP);
+    if (rt_pin_attach_irq(MAZE_RESET_PIN, PIN_IRQ_MODE_FALLING,
+                          maze_reset_button_irq, RT_NULL) == RT_EOK)
+    {
+        rt_pin_irq_enable(MAZE_RESET_PIN, PIN_IRQ_ENABLE);
+    }
     maze_init(&g_maze, 0);
     g_revision = 1;
     g_maze_ready = RT_TRUE;

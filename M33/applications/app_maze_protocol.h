@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #define MAZE_PAYLOAD_V1              0x4D01U
+#define DEMO_PAYLOAD_V1              0x4401U
 
 #define MAZE_CH_POSITION             0U
 #define MAZE_CH_STATUS               1U
@@ -13,6 +14,15 @@
 #define MAZE_CH_LAST_REWARD          5U
 #define MAZE_CH_TOTAL_REWARD         6U
 #define MAZE_CH_PAYLOAD              7U
+
+#define DEMO_CH_STATE                0U
+#define DEMO_CH_NEXT_STATE           1U
+#define DEMO_CH_STATUS               2U
+#define DEMO_CH_EPISODE              3U
+#define DEMO_CH_STEP_INDEX           4U
+#define DEMO_CH_REWARD               5U
+#define DEMO_CH_RESERVED             6U
+#define DEMO_CH_PAYLOAD              7U
 
 #define MAZE_PACK_POSITION(x, y) \
     ((uint16_t)(((uint16_t)(x) & 0xFFU) | (((uint16_t)(y) & 0xFFU) << 8)))

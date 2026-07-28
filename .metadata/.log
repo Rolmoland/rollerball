@@ -3370,3 +3370,27 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 
 !ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 12:03:19.398
 !MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 13:03:19.215
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 14:03:19.383
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 15:03:19.612
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+
+!ENTRY org.rt-thread.studio.application 4 4 2026-07-28 15:03:23.927
+!MESSAGE start pkgs upgrade......
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 15:03:23.928
+!MESSAGE =====>destiDir D:/RtThread/RT-ThreadStudio/platform/env_released/env
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 15:03:23.928
+!MESSAGE ---toolchainpath--> D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/5.4.1/bin
+
+!ENTRY org.rt-thread.studio.application 4 4 2026-07-28 15:03:34.009
+!MESSAGE end pkgs upgrade......
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 16:03:19.494
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==

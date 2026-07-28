@@ -2,7 +2,7 @@
 #include <rtdevice.h>
 #include <string.h>
 #include "drv_ipc.h"
-#include "app_gesture.h"
+#include "app_room.h"
 
 #define IPC_SEND_INTERVAL_MS   50
 
@@ -28,16 +28,20 @@ static void ipc_tx_thread_entry(void *param)
         return;
     }
 
-    rt_kprintf("[IPC-TX] sending gesture to M55\n");
+    rt_kprintf("[IPC-TX] sending ball position to M55\n");
 
     while (1)
     {
+        rt_int16_t x, y;
+        room_get_pos(&x, &y);
+
         memset(&tx_frame, 0, sizeof(tx_frame));
         tx_frame.client_id  = CM55_IPC_PIPE_CLIENT_ID;
         tx_frame.role       = RC_ROLE_M33;
         tx_frame.magic      = RC_MAGIC_WORD;
         tx_frame.seq        = ++seq;
-        tx_frame.channel[0] = (rt_uint16_t)gesture_get();
+        tx_frame.channel[0] = (rt_uint16_t)x;
+        tx_frame.channel[1] = (rt_uint16_t)y;
         tx_frame.checksum   = edge_rc_checksum(&tx_frame);
 
         rt_device_write(ipc_dev, 0, &tx_frame, 1);
@@ -52,7 +56,7 @@ static int app_ipc_tx_init(void)
                                      ipc_tx_thread_entry,
                                      RT_NULL,
                                      1024,
-                                     17,
+                                     18,
                                      10);
     if (t == RT_NULL)
     {

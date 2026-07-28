@@ -6,11 +6,13 @@
 #include "vg_lite_platform.h"
 #include "lv_port_disp.h"
 #include "app_ball_ui.h"
+#include "app_room_ui.h"
 
 #define LED_PIN_G               GET_PIN(16, 6)
 
 void lv_user_gui_init(void)
 {
+    room_ui_init();
     ball_ui_init();
 }
 

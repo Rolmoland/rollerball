@@ -4,29 +4,6 @@
 #include "app_ball_ui.h"
 
 #define IPC_POLL_INTERVAL_MS   20
-#define BALL_OFFSET_PX         150
-
-/* Must match the enum order in M33's app_gesture.h */
-typedef enum
-{
-    GESTURE_NONE = 0,
-    GESTURE_UP,
-    GESTURE_DOWN,
-    GESTURE_LEFT,
-    GESTURE_RIGHT,
-} gesture_dir_t;
-
-static void apply_gesture(gesture_dir_t g)
-{
-    switch (g)
-    {
-    case GESTURE_UP:    ball_ui_set_pos(0, -BALL_OFFSET_PX); break;
-    case GESTURE_DOWN:  ball_ui_set_pos(0,  BALL_OFFSET_PX); break;
-    case GESTURE_LEFT:  ball_ui_set_pos(-BALL_OFFSET_PX, 0); break;
-    case GESTURE_RIGHT: ball_ui_set_pos(BALL_OFFSET_PX,  0); break;
-    default:            ball_ui_set_pos(0, 0); break;
-    }
-}
 
 static void ipc_rx_thread_entry(void *param)
 {
@@ -49,7 +26,7 @@ static void ipc_rx_thread_entry(void *param)
         return;
     }
 
-    rt_kprintf("[IPC-RX] listening for gesture frames from M33\n");
+    rt_kprintf("[IPC-RX] listening for ball position frames from M33\n");
 
     while (1)
     {
@@ -59,7 +36,9 @@ static void ipc_rx_thread_entry(void *param)
                 rx_frame.role  == RC_ROLE_M33 &&
                 edge_rc_checksum(&rx_frame) == rx_frame.checksum)
             {
-                apply_gesture((gesture_dir_t)rx_frame.channel[0]);
+                rt_int16_t x = (rt_int16_t)rx_frame.channel[0];
+                rt_int16_t y = (rt_int16_t)rx_frame.channel[1];
+                ball_ui_set_pos(x, y);
             }
         }
         rt_thread_mdelay(IPC_POLL_INTERVAL_MS);

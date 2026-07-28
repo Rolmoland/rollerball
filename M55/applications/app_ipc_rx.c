@@ -1,7 +1,8 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 #include "drv_ipc.h"
-#include "app_ball_ui.h"
+#include "app_maze_protocol.h"
+#include "app_maze_ui.h"
 
 #define IPC_POLL_INTERVAL_MS   20
 
@@ -26,7 +27,7 @@ static void ipc_rx_thread_entry(void *param)
         return;
     }
 
-    rt_kprintf("[IPC-RX] listening for ball position frames from M33\n");
+    rt_kprintf("[IPC-RX] listening for maze state from M33\n");
 
     while (1)
     {
@@ -34,11 +35,29 @@ static void ipc_rx_thread_entry(void *param)
         {
             if (rx_frame.magic == RC_MAGIC_WORD &&
                 rx_frame.role  == RC_ROLE_M33 &&
-                edge_rc_checksum(&rx_frame) == rx_frame.checksum)
+                edge_rc_checksum(&rx_frame) == rx_frame.checksum &&
+                rx_frame.channel[MAZE_CH_PAYLOAD] == MAZE_PAYLOAD_V1)
             {
-                rt_int16_t x = (rt_int16_t)rx_frame.channel[0];
-                rt_int16_t y = (rt_int16_t)rx_frame.channel[1];
-                ball_ui_set_pos(x, y);
+                maze_ui_state_t state;
+                rt_uint16_t position = rx_frame.channel[MAZE_CH_POSITION];
+                rt_uint16_t status = rx_frame.channel[MAZE_CH_STATUS];
+
+                state.agent_x = MAZE_POSITION_X(position);
+                state.agent_y = MAZE_POSITION_Y(position);
+                state.map_id = MAZE_STATUS_MAP(status);
+                state.action = MAZE_STATUS_ACTION(status);
+                state.result = MAZE_STATUS_RESULT(status);
+                state.done = MAZE_STATUS_DONE(status);
+                state.step_count = rx_frame.channel[MAZE_CH_STEP_COUNT];
+                state.total_steps = rx_frame.channel[MAZE_CH_TOTAL_STEPS];
+                state.collision_count = rx_frame.channel[MAZE_CH_COLLISIONS];
+                state.last_reward_tenths =
+                    (rt_int16_t)rx_frame.channel[MAZE_CH_LAST_REWARD];
+                state.total_reward_tenths =
+                    (rt_int16_t)rx_frame.channel[MAZE_CH_TOTAL_REWARD];
+                state.revision = rx_frame.seq;
+
+                maze_ui_update(&state);
             }
         }
         rt_thread_mdelay(IPC_POLL_INTERVAL_MS);

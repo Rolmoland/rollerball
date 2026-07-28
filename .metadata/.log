@@ -3394,3 +3394,129 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 
 !ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 16:03:19.494
 !MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:03:19.510
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 17:58:46.628
+!MESSAGE =====>destiDir F:\code\vibe_project\rollerball\M33
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 17:58:46.630
+!MESSAGE activeProj --> M33
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 17:58:46.630
+!MESSAGE ----calculateTargetToolInvoking: Cross ARM C Linker
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 17:58:46.632
+!MESSAGE =====> toolChainPath ==> ${toolchain_install_path}/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 17:58:46.634
+!MESSAGE getToolChainPath -> D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-28 17:58:46.634
+!MESSAGE ---toolchainpath--> D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.725
+!MESSAGE D:\RtThread\RT-ThreadStudio>cd /d F:\code\vibe_project\rollerball\M33 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.727
+!MESSAGE F:\code\vibe_project\rollerball\M33>set RTT_ROOT= 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.729
+!MESSAGE F:\code\vibe_project\rollerball\M33>set ENV_ROOT=D:/RtThread/RT-ThreadStudio/platform/env_released/env 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.730
+!MESSAGE F:\code\vibe_project\rollerball\M33>set RTT_EXEC_PATH=D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.731
+!MESSAGE F:\code\vibe_project\rollerball\M33>set KCONF_EXEC_PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\exec 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.732
+!MESSAGE F:\code\vibe_project\rollerball\M33>set RTT_CC=gcc 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.734
+!MESSAGE F:\code\vibe_project\rollerball\M33>set RTTS_PLATFORM=STUDIO 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.735
+!MESSAGE F:\code\vibe_project\rollerball\M33>set SCONS=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27\Scripts 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.735
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PKGS_ROOT=D:/RtThread/RT-ThreadStudio/platform/env_released/env\packages 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.737
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.737
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.739
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27\Scripts;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.741
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27\Scripts;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.742
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27\Scripts;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.743
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\exec;D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27\Scripts;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.744
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\qemu\qemu32;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\exec;D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27\Scripts;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.745
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PYTHONPATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.746
+!MESSAGE F:\code\vibe_project\rollerball\M33>set PATH=D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\qemu\qemu32;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\exec;D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\bin;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27\Scripts;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\Python27;D:/RtThread/RT-ThreadStudio/platform/env_released/env\tools\MinGit-2.25.1-32-bit\cmd;D:/RtThread/RT-ThreadStudio/jre/bin/server;D:/RtThread/RT-ThreadStudio/jre/bin;D:/RtThread/RT-ThreadStudio/jre/lib/amd64;C:\Program Files (x86)\STMicroelectronics\stlink_server;D:\STM32CubeCLT\STM32CubeCLT_1.19.0;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\CMake\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\st-arm-clang\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\Ninja\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\GNU-tools-for-STM32\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STLink-gdb-server\bin;D:\STM32CubeCLT\STM32CubeCLT_1.19.0\STM32CubeProgrammer\bin;D:\Vmware\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;D:\Git\Git\cmd;%QUARTUS_ROOTDIR%\bin;C:\Program Files\Docker\Docker\resources\bin;D:\Git\Git\usr\bin;D:\PuTTY\;D:\BandiZip\;C:\Program Files\mingw64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;D:\nodeJS\;D:\OpenOCD\OpenOCD-20250710-0.12.0\bin;F:\Matlab\R2024B\bin;C:\DevEnv\Python3.11\Scripts\;C:\DevEnv\Python3.11\;C:\Users\22067\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\22067\AppData\Local\Programs\Python\Python312\;C:\Users\22067\AppData\Local\Microsoft\WindowsApps;D:\STM32_Development\MinGW64\mingw64\bin;D:\big shuju\DataGrip\DataGrip 2024.2.2\bin;D:\Clion\CLion 2025.1.2\bin;D:\VScode\Microsoft VS Code\bin;C:\Users\22067\AppData\Roaming\npm;C:\Users\22067\bin;D:\RtThread\RT-ThreadStudio;; 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:46.748
+!MESSAGE F:\code\vibe_project\rollerball\M33>D:/RtThread/RT-ThreadStudio/plugins/org.rt-thread.studio.kconfig.exec_1.0.15/exec/k2j.exe --config ./.config --kconfig ./Kconfig --output json_menus ./.settings/.rtmenus 
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.107
+!MESSAGE ./Kconfig:5: warning: BSP_ROOT has 'option env="BSP_DIR"', but the environment variable BSP_DIR is not set
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.108
+!MESSAGE ./Kconfig:5: warning: Kconfiglib expands environment variables in strings directly, meaning you do not need 'option env=...' "bounce" symbols. For compatibility with the C tools, rename BSP_DIR to BSP_ROOT (so that the symbol name matches the environment variable name).
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.109
+!MESSAGE ./Kconfig:10: warning: RTT_ROOT has 'option env="RTT_DIR"', but the environment variable RTT_DIR is not set
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.110
+!MESSAGE ./Kconfig:10: warning: Kconfiglib expands environment variables in strings directly, meaning you do not need 'option env=...' "bounce" symbols. For compatibility with the C tools, rename RTT_DIR to RTT_ROOT (so that the symbol name matches the environment variable name).
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.111
+!MESSAGE ./Kconfig:18: warning: Kconfiglib expands environment variables in strings directly, meaning you do not need 'option env=...' "bounce" symbols. For compatibility with the C tools, rename PKGS_DIR to PKGS_ROOT (so that the symbol name matches the environment variable name).
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.112
+!MESSAGE ./Kconfig:23: warning: Kconfiglib expands environment variables in strings directly, meaning you do not need 'option env=...' "bounce" symbols. For compatibility with the C tools, rename ENV_DIR to ENV_ROOT (so that the symbol name matches the environment variable name).
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.114
+!MESSAGE ./Kconfig:28: warning: PLATFORM_DIR has 'option env="PLATFORM_DIR"', but the environment variable PLATFORM_DIR is not set
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.115
+!MESSAGE warning: FDT_USING_DEBUG (defined at rt-thread/components/drivers/Kconfig:228) has leading or trailing whitespace in its prompt
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.116
+!MESSAGE warning: RT_VBUS_USING_TESTS (defined at rt-thread/components/vbus/Kconfig:20) has leading or trailing whitespace in its prompt
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.118
+!MESSAGE warning: RT_VBUS_GUEST_VIRQ (defined at rt-thread/components/vbus/Kconfig:34) defined with more than one help text -- only the last one will be used
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.119
+!MESSAGE warning: style: quotes recommended around default value for string symbol RT_LWIP_IPADDR (defined at rt-thread/components/net/lwip/Kconfig:93, D:/RtThread/RT-ThreadStudio/platform/env_released/env\packages/packages/iot/p-net-rtt/Kconfig:59)
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.120
+!MESSAGE warning: style: quotes recommended around default value for string symbol RT_LWIP_GWADDR (defined at rt-thread/components/net/lwip/Kconfig:97, D:/RtThread/RT-ThreadStudio/platform/env_released/env\packages/packages/iot/p-net-rtt/Kconfig:62)
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.121
+!MESSAGE warning: style: quotes recommended around default value for string symbol RT_LWIP_MSKADDR (defined at rt-thread/components/net/lwip/Kconfig:101, D:/RtThread/RT-ThreadStudio/platform/env_released/env\packages/packages/iot/p-net-rtt/Kconfig:65)
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.122
+!MESSAGE warning: style: quotes recommended around default value for string symbol DHCPD_SERVER_IP (defined at rt-thread/components/net/lwip/Kconfig:263)
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 17:58:55.123
+!MESSAGE warning: style: quotes recommended around default value for string symbol DHCP_DNS_SERVER_IP (defined at rt-thread/components/net/lwip/Kconfig:275)
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-28 18:03:19.511
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==

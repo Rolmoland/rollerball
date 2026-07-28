@@ -44,7 +44,6 @@ typedef struct
     uint16_t step_count;
     uint16_t total_steps;
     uint16_t collision_count;
-    uint8_t visited[MAZE_SIZE][MAZE_SIZE];
     uint8_t current_map_id;
     float cumulative_reward;
 } maze_t;
@@ -53,7 +52,6 @@ void maze_init(maze_t *maze, uint8_t map_id);
 int maze_step(maze_t *maze, maze_action_t action, float *reward);
 void maze_get_state(const maze_t *maze, float state[2]);
 int maze_is_done(const maze_t *maze);
-void maze_reset_visited(maze_t *maze);
 void maze_get_neighbors(const maze_t *maze, int *valid_actions, int *count);
 
 #endif /* __MODULE_MAZE_ENGINE_H__ */

@@ -44,7 +44,6 @@ typedef struct
     rt_uint8_t goal_x;
     rt_uint8_t goal_y;
     rt_uint8_t map_id;
-    rt_uint8_t visited[MAZE_ENV_SIZE][MAZE_ENV_SIZE];
     rt_uint16_t step_count;
     rt_uint16_t total_steps;
     rt_uint16_t collision_count;

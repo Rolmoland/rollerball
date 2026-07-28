@@ -61,14 +61,12 @@ void maze_init(maze_t *maze, uint8_t map_id)
         }
     }
 
-    maze->visited[maze->start_y][maze->start_x] = 1;
 }
 
 int maze_step(maze_t *maze, maze_action_t action, float *reward)
 {
     int next_x;
     int next_y;
-    int visited;
     int result;
 
     if (reward != 0)
@@ -91,23 +89,15 @@ int maze_step(maze_t *maze, maze_action_t action, float *reward)
         return MAZE_STEP_COLLISION;
     }
 
-    visited = maze->visited[next_y][next_x];
     maze->agent_x = (uint8_t)next_x;
     maze->agent_y = (uint8_t)next_y;
     maze->step_count++;
-    maze->visited[next_y][next_x] = 1;
 
     if (maze_is_done(maze))
     {
         result = MAZE_STEP_GOAL;
         maze->cumulative_reward += 100.0f;
         if (reward != 0) *reward = 100.0f;
-    }
-    else if (visited)
-    {
-        result = MAZE_STEP_MOVED;
-        maze->cumulative_reward -= 0.5f;
-        if (reward != 0) *reward = -0.5f;
     }
     else
     {
@@ -128,12 +118,6 @@ void maze_get_state(const maze_t *maze, float state[2])
 int maze_is_done(const maze_t *maze)
 {
     return maze->agent_x == maze->goal_x && maze->agent_y == maze->goal_y;
-}
-
-void maze_reset_visited(maze_t *maze)
-{
-    memset(maze->visited, 0, sizeof(maze->visited));
-    maze->visited[maze->agent_y][maze->agent_x] = 1;
 }
 
 void maze_get_neighbors(const maze_t *maze, int *valid_actions, int *count)

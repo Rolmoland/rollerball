@@ -1,16 +1,14 @@
-19:42:20 **** Incremental Build of configuration Debug for project M55 ****
+20:56:25 **** Incremental Build of configuration Debug for project M55 ****
 make -j12 all 
-arm-none-eabi-gcc "../applications/app_demo_collector.c"
-arm-none-eabi-gcc "../applications/app_ipc_rx.c"
-arm-none-eabi-gcc "../applications/app_maze_ui.c"
-arm-none-eabi-gcc "../applications/module_maze_env.c"
+arm-none-eabi-gcc "../applications/app_q_training.c"
+arm-none-eabi-gcc "../applications/module_q_agent.c"
 arm-none-eabi-g++ @link.temp
 D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: rtthread.elf has a LOAD segment with RWX permissions
 arm-none-eabi-objcopy -O ihex "rtthread.elf"  "rtthread.hex"
 arm-none-eabi-size --format=berkeley "rtthread.elf"
    text	   data	    bss	    dec	    hex	filename
- 508076	   3264	4407288	4918628	 4b0d64	rtthread.elf
+ 512512	   3264	4408984	4924760	 4b2558	rtthread.elf
 
               Used Size(B)           Used Size(KB)
-Flash:         511340 B              499.36 KB
-RAM:          4410552 B             4307.18 KB
+Flash:         515776 B              503.69 KB
+RAM:          4412248 B             4308.84 KB

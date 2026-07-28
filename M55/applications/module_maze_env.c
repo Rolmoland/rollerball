@@ -79,8 +79,6 @@ rt_err_t maze_env_init(maze_env_t *env, rt_uint8_t map_id)
             }
         }
     }
-    env->visited[env->start_y][env->start_x] = 1U;
-
     return RT_EOK;
 }
 
@@ -101,7 +99,6 @@ maze_env_step_result_t maze_env_step(maze_env_t *env,
     const rt_uint8_t (*map)[MAZE_ENV_SIZE];
     int next_x;
     int next_y;
-    rt_bool_t visited;
 
     RT_ASSERT(env != RT_NULL);
 
@@ -135,11 +132,9 @@ maze_env_step_result_t maze_env_step(maze_env_t *env,
         return MAZE_ENV_STEP_COLLISION;
     }
 
-    visited = env->visited[next_y][next_x] != 0U;
     env->agent_x = (rt_uint8_t)next_x;
     env->agent_y = (rt_uint8_t)next_y;
     env->step_count++;
-    env->visited[next_y][next_x] = 1U;
 
     if (maze_env_is_done(env))
     {
@@ -150,16 +145,6 @@ maze_env_step_result_t maze_env_step(maze_env_t *env,
         }
         return MAZE_ENV_STEP_GOAL;
     }
-    if (visited)
-    {
-        env->cumulative_reward -= 0.5f;
-        if (reward != RT_NULL)
-        {
-            *reward = -0.5f;
-        }
-        return MAZE_ENV_STEP_MOVED;
-    }
-
     env->cumulative_reward -= 0.1f;
     if (reward != RT_NULL)
     {

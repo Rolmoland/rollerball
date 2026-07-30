@@ -1,98 +1,15 @@
-18:56:03 **** Incremental Build of configuration Debug for project M55 ****
+19:27:47 **** Incremental Build of configuration Debug for project M55 ****
 make -j12 all 
 arm-none-eabi-gcc "../applications/app_maze_ui.c"
+arm-none-eabi-gcc "../applications/app_mode_manager.c"
 arm-none-eabi-gcc "../applications/app_q_training.c"
-../applications/app_maze_ui.c: In function 'set_q_stats_text':
-../applications/app_maze_ui.c:68:32: warning: format '%u' expects argument of type 'unsigned int', but argument 3 has type 'rt_uint32_t' {aka 'long unsigned int'} [-Wformat=]
-   68 |                           "EP %u/%u  OK %u  EPS %u.%03u\n"
-      |                               ~^
-      |                                |
-      |                                unsigned int
-      |                               %lu
-   69 |                           "REWARD %s%d.%d  STEPS %u",
-   70 |                           state->current_episode,
-      |                           ~~~~~~~~~~~~~~~~~~~~~~
-      |                                |
-      |                                rt_uint32_t {aka long unsigned int}
-../applications/app_maze_ui.c:68:35: warning: format '%u' expects argument of type 'unsigned int', but argument 4 has type 'rt_uint32_t' {aka 'long unsigned int'} [-Wformat=]
-   68 |                           "EP %u/%u  OK %u  EPS %u.%03u\n"
-      |                                  ~^
-      |                                   |
-      |                                   unsigned int
-      |                                  %lu
-......
-   71 |                           state->target_episodes,
-      |                           ~~~~~~~~~~~~~~~~~~~~~~
-      |                                |
-      |                                rt_uint32_t {aka long unsigned int}
-../applications/app_maze_ui.c:68:42: warning: format '%u' expects argument of type 'unsigned int', but argument 5 has type 'rt_uint32_t' {aka 'long unsigned int'} [-Wformat=]
-   68 |                           "EP %u/%u  OK %u  EPS %u.%03u\n"
-      |                                         ~^
-      |                                          |
-      |                                          unsigned int
-      |                                         %lu
-......
-   72 |                           state->successful_episodes,
-      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~
-      |                                |
-      |                                rt_uint32_t {aka long unsigned int}
-../applications/app_maze_ui.c:68:50: warning: format '%u' expects argument of type 'unsigned int', but argument 6 has type 'long unsigned int' [-Wformat=]
-   68 |                           "EP %u/%u  OK %u  EPS %u.%03u\n"
-      |                                                 ~^
-      |                                                  |
-      |                                                  unsigned int
-      |                                                 %lu
-......
-   73 |                           state->epsilon_milli / 1000U,
-      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      |                                                |
-      |                                                long unsigned int
-../applications/app_maze_ui.c:68:55: warning: format '%u' expects argument of type 'unsigned int', but argument 7 has type 'long unsigned int' [-Wformat=]
-   68 |                           "EP %u/%u  OK %u  EPS %u.%03u\n"
-      |                                                    ~~~^
-      |                                                       |
-      |                                                       unsigned int
-      |                                                    %03lu
-......
-   74 |                           state->epsilon_milli % 1000U,
-      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-      |                                                |
-      |                                                long unsigned int
-../applications/app_maze_ui.c:68:27: warning: format '%d' expects argument of type 'int', but argument 9 has type 'long int' [-Wformat=]
-   68 |                           "EP %u/%u  OK %u  EPS %u.%03u\n"
-      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-......
-   76 |                           reward_abs / 10,
-      |                           ~~~~~~~~~~~~~~~
-      |                                      |
-      |                                      long int
-../applications/app_maze_ui.c:69:38: note: format string is defined here
-   69 |                           "REWARD %s%d.%d  STEPS %u",
-      |                                     ~^
-      |                                      |
-      |                                      int
-      |                                     %ld
-../applications/app_maze_ui.c:68:27: warning: format '%d' expects argument of type 'int', but argument 10 has type 'long int' [-Wformat=]
-   68 |                           "EP %u/%u  OK %u  EPS %u.%03u\n"
-      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-......
-   77 |                           reward_abs % 10,
-      |                           ~~~~~~~~~~~~~~~
-      |                                      |
-      |                                      long int
-../applications/app_maze_ui.c:69:41: note: format string is defined here
-   69 |                           "REWARD %s%d.%d  STEPS %u",
-      |                                        ~^
-      |                                         |
-      |                                         int
-      |                                        %ld
 arm-none-eabi-g++ @link.temp
 D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: rtthread.elf has a LOAD segment with RWX permissions
 arm-none-eabi-objcopy -O ihex "rtthread.elf"  "rtthread.hex"
 arm-none-eabi-size --format=berkeley "rtthread.elf"
    text	   data	    bss	    dec	    hex	filename
- 513984	   3264	4409072	4926320	 4b2b70	rtthread.elf
+ 515348	   3264	4409244	4927856	 4b3170	rtthread.elf
 
               Used Size(B)           Used Size(KB)
-Flash:         517248 B              505.12 KB
-RAM:          4412336 B             4308.92 KB
+Flash:         518612 B              506.46 KB
+RAM:          4412508 B             4309.09 KB

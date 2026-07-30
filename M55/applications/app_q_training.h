@@ -19,14 +19,17 @@ typedef struct
     q_training_ui_phase_t phase;
     rt_uint8_t agent_x;
     rt_uint8_t agent_y;
+    rt_bool_t inference_complete;
     rt_bool_t inference_success;
-    rt_uint16_t steps;
+    rt_uint16_t training_steps;
+    rt_uint16_t inference_steps;
     rt_uint32_t current_episode;
     rt_uint32_t target_episodes;
     rt_uint32_t successful_episodes;
     rt_uint32_t demonstration_seeds;
     rt_uint32_t epsilon_milli;
-    rt_int32_t reward_tenths;
+    rt_int32_t training_reward_tenths;
+    rt_int32_t inference_reward_tenths;
     rt_uint32_t revision;
 } q_training_ui_state_t;
 

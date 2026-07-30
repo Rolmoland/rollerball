@@ -1,7 +1,9 @@
 #include "lvgl.h"
 #include <string.h>
 #include "app_ball_ui.h"
+#include "app_demo_collector.h"
 #include "app_maze_ui.h"
+#include "app_mode_manager.h"
 #include "app_q_training.h"
 #include "module_maze_env.h"
 
@@ -9,7 +11,7 @@
 #define MAZE_CELL_PX     40
 #define MAZE_ORIGIN_X    56
 #define MAZE_ORIGIN_Y    96
-#define Q_UI_POLL_MS     100
+#define UI_POLL_MS       100
 
 static lv_obj_t *s_table;
 static lv_obj_t *s_status_label;
@@ -18,125 +20,278 @@ static lv_obj_t *s_complete_panel;
 static lv_obj_t *s_complete_label;
 static maze_ui_state_t s_state;
 static q_training_ui_state_t s_q_state;
-static rt_uint8_t s_visited[MAZE_SIZE][MAZE_SIZE];
+static app_mode_state_t s_mode_state;
+static rt_uint8_t s_demo_visited[MAZE_SIZE][MAZE_SIZE];
+static rt_uint8_t s_infer_visited[MAZE_SIZE][MAZE_SIZE];
 static rt_uint16_t s_demo_count;
-static rt_bool_t s_q_view_active = RT_FALSE;
 static rt_bool_t s_ready = RT_FALSE;
+
+static void set_reward_text(lv_obj_t *label, const maze_ui_state_t *state);
 
 static void set_status_text(void)
 {
-    lv_label_set_text_fmt(s_status_label, "MAP %u  %s  DEMO N=%u",
+    lv_label_set_text_fmt(s_status_label, "DEMO  MAP %u  %s  N=%u",
                           s_state.map_id,
                           s_state.done ? "COMPLETE" : "RUNNING",
                           s_demo_count);
 }
 
-static const char *q_phase_text(q_training_ui_phase_t phase)
+static const char *training_status_text(const q_training_ui_state_t *state)
 {
-    switch (phase)
+    if (state->phase == Q_TRAINING_UI_PRETRAIN)
     {
-    case Q_TRAINING_UI_READY:
-        return "Q READY";
-    case Q_TRAINING_UI_PRETRAIN:
-        return "Q PRETRAIN";
-    case Q_TRAINING_UI_TRAINING:
-        return "Q TRAIN";
-    case Q_TRAINING_UI_TRAINED:
-        return "Q TRAINED";
-    case Q_TRAINING_UI_INFERENCE:
-        return "Q INFER";
-    case Q_TRAINING_UI_INFERENCE_DONE:
-        return "Q COMPLETE";
-    default:
-        return "Q IDLE";
+        return "TRAIN PREP";
+    }
+    if (state->phase == Q_TRAINING_UI_TRAINING)
+    {
+        return "TRAIN RUNNING";
+    }
+    if (state->current_episode > 0U)
+    {
+        return "TRAIN COMPLETE";
+    }
+    return "TRAIN READY";
+}
+
+static void set_training_text(const q_training_ui_state_t *state)
+{
+    rt_int32_t reward_abs = state->training_reward_tenths < 0 ?
+                            -state->training_reward_tenths :
+                            state->training_reward_tenths;
+
+    lv_label_set_text_fmt(s_status_label, "%s  DEMO N=%u",
+                          training_status_text(state), s_demo_count);
+    lv_label_set_text_fmt(s_stats_label,
+                          "EP %lu/%lu  OK %lu  EPS %lu.%03lu\n"
+                          "REWARD %s%ld.%ld  STEPS %u",
+                          (unsigned long)state->current_episode,
+                          (unsigned long)state->target_episodes,
+                          (unsigned long)state->successful_episodes,
+                          (unsigned long)(state->epsilon_milli / 1000U),
+                          (unsigned long)(state->epsilon_milli % 1000U),
+                          state->training_reward_tenths < 0 ? "-" : "",
+                          (long)(reward_abs / 10),
+                          (long)(reward_abs % 10),
+                          (unsigned int)state->training_steps);
+}
+
+static void set_inference_text(const q_training_ui_state_t *state)
+{
+    const char *status;
+    rt_int32_t reward_abs = state->inference_reward_tenths < 0 ?
+                            -state->inference_reward_tenths :
+                            state->inference_reward_tenths;
+
+    if (state->phase == Q_TRAINING_UI_INFERENCE)
+    {
+        status = "INFER RUNNING";
+    }
+    else if (state->inference_complete)
+    {
+        status = state->inference_success ?
+                 "INFER COMPLETE" : "INFER FAILED";
+    }
+    else
+    {
+        status = "INFER READY";
+    }
+
+    lv_label_set_text_fmt(s_status_label, "%s  DEMO N=%u",
+                          status, s_demo_count);
+    lv_label_set_text_fmt(s_stats_label,
+                          "EP %lu/%lu  EPS %lu.%03lu\n"
+                          "REWARD %s%ld.%ld  STEPS %u",
+                          (unsigned long)state->current_episode,
+                          (unsigned long)state->target_episodes,
+                          (unsigned long)(state->epsilon_milli / 1000U),
+                          (unsigned long)(state->epsilon_milli % 1000U),
+                          state->inference_reward_tenths < 0 ? "-" : "",
+                          (long)(reward_abs / 10),
+                          (long)(reward_abs % 10),
+                          (unsigned int)state->inference_steps);
+}
+
+static rt_uint16_t latest_completed_demo_steps(void)
+{
+    rt_uint16_t count = demo_collector_count();
+
+    while (count > 0U)
+    {
+        demo_transition_t transition;
+
+        count--;
+        if (demo_collector_get(count, &transition) == RT_EOK &&
+            transition.done)
+        {
+            return transition.step_index;
+        }
+    }
+    return 0U;
+}
+
+static void set_compare_text(const q_training_ui_state_t *state)
+{
+    rt_uint16_t human_steps = latest_completed_demo_steps();
+
+    lv_label_set_text_fmt(s_status_label, "COMPARE  DEMO N=%u",
+                          s_demo_count);
+    if (human_steps > 0U && state->inference_complete)
+    {
+        int saved_steps = (int)human_steps - (int)state->inference_steps;
+
+        lv_label_set_text_fmt(s_stats_label,
+                              "HUMAN %u STEPS\nQ %u STEPS  SAVE %d",
+                              (unsigned int)human_steps,
+                              (unsigned int)state->inference_steps,
+                              saved_steps);
+    }
+    else if (human_steps > 0U)
+    {
+        lv_label_set_text_fmt(s_stats_label,
+                              "HUMAN %u STEPS\nQ --",
+                              (unsigned int)human_steps);
+    }
+    else if (state->inference_complete)
+    {
+        lv_label_set_text_fmt(s_stats_label,
+                              "HUMAN --\nQ %u STEPS",
+                              (unsigned int)state->inference_steps);
+    }
+    else
+    {
+        lv_label_set_text(s_stats_label, "HUMAN --\nQ --");
     }
 }
 
-static void set_q_status_text(const q_training_ui_state_t *state)
+static void hide_complete_panel(void)
 {
-    lv_label_set_text_fmt(s_status_label, "%s  DEMO N=%u",
-                          q_phase_text(state->phase), s_demo_count);
+    lv_obj_add_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
 }
 
-static void set_q_stats_text(const q_training_ui_state_t *state)
+static void show_physical_complete(void)
 {
-    rt_int32_t reward_abs = state->reward_tenths < 0 ?
-                            -state->reward_tenths :
-                            state->reward_tenths;
-
-    lv_label_set_text_fmt(s_stats_label,
-                          "EP %u/%u  OK %u  EPS %u.%03u\n"
-                          "REWARD %s%d.%d  STEPS %u",
-                          state->current_episode,
-                          state->target_episodes,
-                          state->successful_episodes,
-                          state->epsilon_milli / 1000U,
-                          state->epsilon_milli % 1000U,
-                          state->reward_tenths < 0 ? "-" : "",
-                          reward_abs / 10,
-                          reward_abs % 10,
-                          state->steps);
+    lv_label_set_text(s_complete_label,
+                      "GOAL REACHED\nPRESS SW2 TO RESET");
+    lv_obj_center(s_complete_label);
+    lv_obj_set_style_bg_color(s_complete_panel,
+                              lv_color_hex(0x2E7D32), 0);
+    lv_obj_remove_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_move_foreground(s_complete_panel);
 }
 
-static void q_ui_timer_cb(lv_timer_t *timer)
+static void show_inference_complete(const q_training_ui_state_t *state)
 {
-    q_training_ui_state_t state;
-    rt_bool_t phase_changed;
+    lv_label_set_text_fmt(s_complete_label,
+                          state->inference_success ?
+                          "Q INFERENCE COMPLETE\n%u STEPS" :
+                          "Q INFERENCE FAILED\n%u STEPS",
+                          (unsigned int)state->inference_steps);
+    lv_obj_center(s_complete_label);
+    lv_obj_set_style_bg_color(s_complete_panel,
+                              state->inference_success ?
+                              lv_color_hex(0x2E7D32) :
+                              lv_color_hex(0xC62828),
+                              0);
+    lv_obj_remove_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_move_foreground(s_complete_panel);
+}
+
+static void render_physical_state(void)
+{
+    if (s_state.agent_x < MAZE_SIZE && s_state.agent_y < MAZE_SIZE)
+    {
+        ball_ui_set_cell_locked(s_state.agent_x, s_state.agent_y);
+    }
+    set_status_text();
+    set_reward_text(s_stats_label, &s_state);
+    if (s_state.done)
+    {
+        show_physical_complete();
+    }
+    else
+    {
+        hide_complete_panel();
+    }
+}
+
+static void render_current_mode(rt_bool_t mode_changed,
+                                q_training_ui_phase_t old_q_phase)
+{
+    if (s_mode_state.mode == APP_MODE_DEMO)
+    {
+        render_physical_state();
+    }
+    else if (s_mode_state.mode == APP_MODE_TRAIN)
+    {
+        ball_ui_set_cell_locked(0U, 0U);
+        set_training_text(&s_q_state);
+        hide_complete_panel();
+    }
+    else if (s_mode_state.mode == APP_MODE_INFER)
+    {
+        if (s_q_state.phase == Q_TRAINING_UI_INFERENCE &&
+            old_q_phase != Q_TRAINING_UI_INFERENCE)
+        {
+            memset(s_infer_visited, 0, sizeof(s_infer_visited));
+            s_infer_visited[0][0] = 1U;
+        }
+        if (s_q_state.agent_x < MAZE_SIZE &&
+            s_q_state.agent_y < MAZE_SIZE)
+        {
+            s_infer_visited[s_q_state.agent_y][s_q_state.agent_x] = 1U;
+            ball_ui_set_cell_locked(s_q_state.agent_x,
+                                    s_q_state.agent_y);
+        }
+        else if (mode_changed)
+        {
+            ball_ui_set_cell_locked(0U, 0U);
+        }
+        set_inference_text(&s_q_state);
+        if (s_q_state.inference_complete)
+        {
+            show_inference_complete(&s_q_state);
+        }
+        else
+        {
+            hide_complete_panel();
+        }
+    }
+    else
+    {
+        ball_ui_set_cell_locked(0U, 0U);
+        set_compare_text(&s_q_state);
+        hide_complete_panel();
+    }
+    lv_obj_invalidate(s_table);
+}
+
+static void ui_timer_cb(lv_timer_t *timer)
+{
+    app_mode_state_t mode_state;
+    q_training_ui_state_t q_state;
+    q_training_ui_phase_t old_q_phase;
+    rt_bool_t mode_changed;
+    rt_bool_t q_changed;
 
     (void)timer;
 
-    if (!s_ready || q_training_get_ui_state(&state) != RT_EOK ||
-        state.phase == Q_TRAINING_UI_NONE ||
-        state.revision == s_q_state.revision)
+    if (!s_ready || app_mode_get_state(&mode_state) != RT_EOK ||
+        q_training_get_ui_state(&q_state) != RT_EOK)
     {
         return;
     }
 
-    phase_changed = state.phase != s_q_state.phase;
-    s_q_view_active = RT_TRUE;
-    if (state.phase == Q_TRAINING_UI_READY ||
-        (phase_changed &&
-         (state.phase == Q_TRAINING_UI_TRAINING ||
-          state.phase == Q_TRAINING_UI_TRAINED ||
-          state.phase == Q_TRAINING_UI_INFERENCE)))
+    mode_changed = mode_state.revision != s_mode_state.revision;
+    q_changed = q_state.revision != s_q_state.revision;
+    if (!mode_changed && !q_changed)
     {
-        memset(s_visited, 0, sizeof(s_visited));
-        s_visited[0][0] = 1U;
-        ball_ui_set_cell_locked(0U, 0U);
+        return;
     }
 
-    s_q_state = state;
-    if ((state.phase == Q_TRAINING_UI_INFERENCE ||
-         state.phase == Q_TRAINING_UI_INFERENCE_DONE) &&
-        state.agent_x < MAZE_SIZE && state.agent_y < MAZE_SIZE)
-    {
-        s_visited[state.agent_y][state.agent_x] = 1U;
-        ball_ui_set_cell_locked(state.agent_x, state.agent_y);
-    }
-
-    set_q_status_text(&state);
-    set_q_stats_text(&state);
-    if (state.phase == Q_TRAINING_UI_INFERENCE_DONE)
-    {
-        lv_label_set_text_fmt(s_complete_label,
-                              state.inference_success ?
-                              "Q INFERENCE COMPLETE\n%u STEPS" :
-                              "Q INFERENCE FAILED\n%u STEPS",
-                              state.steps);
-        lv_obj_center(s_complete_label);
-        lv_obj_set_style_bg_color(s_complete_panel,
-                                  state.inference_success ?
-                                  lv_color_hex(0x2E7D32) :
-                                  lv_color_hex(0xC62828),
-                                  0);
-        lv_obj_remove_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_move_foreground(s_complete_panel);
-    }
-    else
-    {
-        lv_obj_add_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
-    }
-    lv_obj_invalidate(s_table);
+    old_q_phase = s_q_state.phase;
+    s_mode_state = mode_state;
+    s_q_state = q_state;
+    render_current_mode(mode_changed, old_q_phase);
 }
 
 static void maze_draw_event(lv_event_t *event)
@@ -177,7 +332,10 @@ static void maze_draw_event(lv_event_t *event)
     {
         bg = lv_color_hex(0xFFD54F);
     }
-    else if (s_visited[row][col])
+    else if ((s_mode_state.mode == APP_MODE_DEMO &&
+              s_demo_visited[row][col]) ||
+             (s_mode_state.mode == APP_MODE_INFER &&
+              s_infer_visited[row][col]))
     {
         bg = lv_color_hex(0xBBDEFB);
     }
@@ -264,8 +422,10 @@ void maze_ui_init(void)
     lv_label_set_text(s_stats_label, "STEP 0  TOTAL 0  HIT 0\nREWARD 0.0  SUM 0.0");
 
     memset(&s_state, 0, sizeof(s_state));
-    memset(s_visited, 0, sizeof(s_visited));
-    s_visited[0][0] = 1;
+    memset(s_demo_visited, 0, sizeof(s_demo_visited));
+    memset(s_infer_visited, 0, sizeof(s_infer_visited));
+    s_demo_visited[0][0] = 1U;
+    s_infer_visited[0][0] = 1U;
     ball_ui_init(s_table, MAZE_CELL_PX);
     ball_ui_set_cell_locked(0, 0);
 
@@ -284,7 +444,7 @@ void maze_ui_init(void)
     lv_obj_set_style_text_align(s_complete_label, LV_TEXT_ALIGN_CENTER, 0);
     lv_obj_center(s_complete_label);
     s_ready = RT_TRUE;
-    lv_timer_create(q_ui_timer_cb, Q_UI_POLL_MS, RT_NULL);
+    lv_timer_create(ui_timer_cb, UI_POLL_MS, RT_NULL);
 }
 
 void maze_ui_update(const maze_ui_state_t *state)
@@ -299,31 +459,17 @@ void maze_ui_update(const maze_ui_state_t *state)
     }
 
     lv_lock();
-    if (s_q_view_active)
-    {
-        lv_unlock();
-        return;
-    }
     if (state->total_steps == 0)
     {
-        memset(s_visited, 0, sizeof(s_visited));
+        memset(s_demo_visited, 0, sizeof(s_demo_visited));
     }
-    s_visited[state->agent_y][state->agent_x] = 1;
+    s_demo_visited[state->agent_y][state->agent_x] = 1U;
     s_state = *state;
-
-    ball_ui_set_cell_locked(state->agent_x, state->agent_y);
-    set_status_text();
-    set_reward_text(s_stats_label, state);
-    if (state->done)
+    if (s_mode_state.mode == APP_MODE_DEMO)
     {
-        lv_obj_remove_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_move_foreground(s_complete_panel);
+        render_physical_state();
+        lv_obj_invalidate(s_table);
     }
-    else
-    {
-        lv_obj_add_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
-    }
-    lv_obj_invalidate(s_table);
     lv_unlock();
 }
 
@@ -337,13 +483,21 @@ void maze_ui_set_demo_count(rt_uint16_t count)
 
     lv_lock();
     s_demo_count = count;
-    if (s_q_view_active)
+    if (s_mode_state.mode == APP_MODE_DEMO)
     {
-        set_q_status_text(&s_q_state);
+        set_status_text();
+    }
+    else if (s_mode_state.mode == APP_MODE_TRAIN)
+    {
+        set_training_text(&s_q_state);
+    }
+    else if (s_mode_state.mode == APP_MODE_INFER)
+    {
+        set_inference_text(&s_q_state);
     }
     else
     {
-        set_status_text();
+        set_compare_text(&s_q_state);
     }
     lv_unlock();
 }

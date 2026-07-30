@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "app_demo_collector.h"
+#include "app_mode_manager.h"
 #include "app_q_training.h"
 #include "module_maze_env.h"
 #include "module_q_agent.h"
@@ -135,6 +136,7 @@ static int q_pretrain_cmd(int argc, char **argv)
         rt_kprintf("[Q] training busy\n");
         return -RT_EBUSY;
     }
+    app_mode_set(APP_MODE_TRAIN);
 
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     s_ui_state.phase = Q_TRAINING_UI_PRETRAIN;
@@ -252,8 +254,9 @@ static void q_train_thread_entry(void *parameter)
         s_ui_state.phase = Q_TRAINING_UI_TRAINING;
         s_ui_state.current_episode = episode;
         s_ui_state.successful_episodes = run_successes;
-        s_ui_state.steps = env.total_steps;
-        s_ui_state.reward_tenths = s_training_stats.last_reward_tenths;
+        s_ui_state.training_steps = env.total_steps;
+        s_ui_state.training_reward_tenths =
+            s_training_stats.last_reward_tenths;
         s_ui_state.epsilon_milli =
             (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
         ui_state_publish_locked();
@@ -300,17 +303,17 @@ static int q_train_cmd(int argc, char **argv)
         rt_kprintf("[Q] training busy\n");
         return -RT_EBUSY;
     }
+    app_mode_set(APP_MODE_TRAIN);
 
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     s_ui_state.phase = Q_TRAINING_UI_TRAINING;
     s_ui_state.agent_x = 0U;
     s_ui_state.agent_y = 0U;
-    s_ui_state.inference_success = RT_FALSE;
-    s_ui_state.steps = 0U;
+    s_ui_state.training_steps = 0U;
     s_ui_state.current_episode = 0U;
     s_ui_state.target_episodes = episodes;
     s_ui_state.successful_episodes = 0U;
-    s_ui_state.reward_tenths = 0;
+    s_ui_state.training_reward_tenths = 0;
     s_ui_state.epsilon_milli =
         (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
     ui_state_publish_locked();
@@ -359,14 +362,16 @@ static int q_infer_cmd(int argc, char **argv)
         rt_kprintf("[Q] environment init failed\n");
         return -RT_ERROR;
     }
+    app_mode_set(APP_MODE_INFER);
 
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     s_ui_state.phase = Q_TRAINING_UI_INFERENCE;
     s_ui_state.agent_x = env.agent_x;
     s_ui_state.agent_y = env.agent_y;
+    s_ui_state.inference_complete = RT_FALSE;
     s_ui_state.inference_success = RT_FALSE;
-    s_ui_state.steps = 0U;
-    s_ui_state.reward_tenths = 0;
+    s_ui_state.inference_steps = 0U;
+    s_ui_state.inference_reward_tenths = 0;
     ui_state_publish_locked();
     rt_mutex_release(&s_training_lock);
 
@@ -392,8 +397,8 @@ static int q_infer_cmd(int argc, char **argv)
         s_ui_state.agent_x = env.agent_x;
         s_ui_state.agent_y = env.agent_y;
         s_ui_state.inference_success = done;
-        s_ui_state.steps = env.total_steps;
-        s_ui_state.reward_tenths =
+        s_ui_state.inference_steps = env.total_steps;
+        s_ui_state.inference_reward_tenths =
             (rt_int32_t)(env.cumulative_reward * 10.0f);
         ui_state_publish_locked();
         rt_mutex_release(&s_training_lock);
@@ -410,6 +415,7 @@ static int q_infer_cmd(int argc, char **argv)
                (rt_int32_t)(env.cumulative_reward * 10.0f));
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     s_ui_state.phase = Q_TRAINING_UI_INFERENCE_DONE;
+    s_ui_state.inference_complete = RT_TRUE;
     s_ui_state.inference_success = maze_env_is_done(&env);
     ui_state_publish_locked();
     rt_mutex_release(&s_training_lock);
@@ -474,6 +480,7 @@ static int q_reset_cmd(int argc, char **argv)
         (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
     ui_state_publish_locked();
     rt_mutex_release(&s_training_lock);
+    app_mode_set(APP_MODE_TRAIN);
     rt_kprintf("[Q] reset complete\n");
     return RT_EOK;
 }

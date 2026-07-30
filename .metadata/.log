@@ -4794,3 +4794,9 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 
 !ENTRY org.eclipse.launchbar.core 2 0 2026-07-30 18:54:44.895
 !MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-30 19:53:05.926
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-30 20:53:06.072
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==

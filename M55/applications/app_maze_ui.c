@@ -7,7 +7,7 @@
 #include "app_q_training.h"
 #include "module_maze_env.h"
 
-#define MAZE_SIZE        10
+#define MAZE_SIZE        MAZE_ENV_SIZE
 #define MAZE_CELL_PX     40
 #define MAZE_ORIGIN_X    56
 #define MAZE_ORIGIN_Y    96
@@ -24,6 +24,8 @@ static app_mode_state_t s_mode_state;
 static rt_uint8_t s_demo_visited[MAZE_SIZE][MAZE_SIZE];
 static rt_uint8_t s_infer_visited[MAZE_SIZE][MAZE_SIZE];
 static rt_uint16_t s_demo_count;
+static rt_uint8_t s_start_x;
+static rt_uint8_t s_start_y;
 static rt_bool_t s_ready = RT_FALSE;
 
 static void set_reward_text(lv_obj_t *label, const maze_ui_state_t *state);
@@ -59,8 +61,10 @@ static void set_training_text(const q_training_ui_state_t *state)
                             -state->training_reward_tenths :
                             state->training_reward_tenths;
 
-    lv_label_set_text_fmt(s_status_label, "%s  DEMO N=%u",
-                          training_status_text(state), s_demo_count);
+    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu  DEMO N=%u",
+                          training_status_text(state),
+                          (unsigned long)maze_env_map_revision(),
+                          s_demo_count);
     lv_label_set_text_fmt(s_stats_label,
                           "EP %lu/%lu  OK %lu  EPS %lu.%03lu\n"
                           "REWARD %s%ld.%ld  STEPS %u",
@@ -96,8 +100,10 @@ static void set_inference_text(const q_training_ui_state_t *state)
         status = "INFER READY";
     }
 
-    lv_label_set_text_fmt(s_status_label, "%s  DEMO N=%u",
-                          status, s_demo_count);
+    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu  DEMO N=%u",
+                          status,
+                          (unsigned long)maze_env_map_revision(),
+                          s_demo_count);
     lv_label_set_text_fmt(s_stats_label,
                           "EP %lu/%lu  EPS %lu.%03lu\n"
                           "REWARD %s%ld.%ld  STEPS %u",
@@ -223,7 +229,7 @@ static void render_current_mode(rt_bool_t mode_changed,
     }
     else if (s_mode_state.mode == APP_MODE_TRAIN)
     {
-        ball_ui_set_cell_locked(0U, 0U);
+        ball_ui_set_cell_locked(s_start_x, s_start_y);
         set_training_text(&s_q_state);
         hide_complete_panel();
     }
@@ -233,7 +239,7 @@ static void render_current_mode(rt_bool_t mode_changed,
             old_q_phase != Q_TRAINING_UI_INFERENCE)
         {
             memset(s_infer_visited, 0, sizeof(s_infer_visited));
-            s_infer_visited[0][0] = 1U;
+            s_infer_visited[s_start_y][s_start_x] = 1U;
         }
         if (s_q_state.agent_x < MAZE_SIZE &&
             s_q_state.agent_y < MAZE_SIZE)
@@ -244,7 +250,7 @@ static void render_current_mode(rt_bool_t mode_changed,
         }
         else if (mode_changed)
         {
-            ball_ui_set_cell_locked(0U, 0U);
+            ball_ui_set_cell_locked(s_start_x, s_start_y);
         }
         set_inference_text(&s_q_state);
         if (s_q_state.inference_complete)
@@ -258,7 +264,7 @@ static void render_current_mode(rt_bool_t mode_changed,
     }
     else
     {
-        ball_ui_set_cell_locked(0U, 0U);
+        ball_ui_set_cell_locked(s_start_x, s_start_y);
         set_compare_text(&s_q_state);
         hide_complete_panel();
     }
@@ -377,6 +383,13 @@ void maze_ui_init(void)
 {
     rt_uint32_t row;
     rt_uint32_t col;
+    maze_env_t env;
+
+    if (maze_env_init(&env, 0U) == RT_EOK)
+    {
+        s_start_x = env.start_x;
+        s_start_y = env.start_y;
+    }
 
     s_status_label = lv_label_create(lv_screen_active());
     lv_obj_set_pos(s_status_label, MAZE_ORIGIN_X, 32);
@@ -424,10 +437,10 @@ void maze_ui_init(void)
     memset(&s_state, 0, sizeof(s_state));
     memset(s_demo_visited, 0, sizeof(s_demo_visited));
     memset(s_infer_visited, 0, sizeof(s_infer_visited));
-    s_demo_visited[0][0] = 1U;
-    s_infer_visited[0][0] = 1U;
+    s_demo_visited[s_start_y][s_start_x] = 1U;
+    s_infer_visited[s_start_y][s_start_x] = 1U;
     ball_ui_init(s_table, MAZE_CELL_PX);
-    ball_ui_set_cell_locked(0, 0);
+    ball_ui_set_cell_locked(s_start_x, s_start_y);
 
     s_complete_panel = lv_obj_create(lv_screen_active());
     lv_obj_remove_flag(s_complete_panel, LV_OBJ_FLAG_SCROLLABLE);
@@ -500,4 +513,59 @@ void maze_ui_set_demo_count(rt_uint16_t count)
         set_compare_text(&s_q_state);
     }
     lv_unlock();
+}
+
+rt_err_t maze_ui_reload_map(void)
+{
+    maze_env_t env;
+    app_mode_state_t mode_state;
+    q_training_ui_state_t q_state;
+    rt_uint32_t row;
+    rt_uint32_t col;
+
+    if (!s_ready)
+    {
+        return -RT_EBUSY;
+    }
+    if (maze_env_init(&env, 0U) != RT_EOK ||
+        app_mode_get_state(&mode_state) != RT_EOK ||
+        q_training_get_ui_state(&q_state) != RT_EOK)
+    {
+        return -RT_ERROR;
+    }
+
+    lv_lock();
+    s_start_x = env.start_x;
+    s_start_y = env.start_y;
+    for (row = 0U; row < MAZE_SIZE; row++)
+    {
+        for (col = 0U; col < MAZE_SIZE; col++)
+        {
+            const char *text = "";
+            maze_env_cell_t cell = maze_env_cell_at(0U, col, row);
+
+            if (cell == MAZE_ENV_CELL_START)
+            {
+                text = "S";
+            }
+            else if (cell == MAZE_ENV_CELL_GOAL)
+            {
+                text = "G";
+            }
+            lv_table_set_cell_value(s_table, row, col, text);
+        }
+    }
+
+    memset(&s_state, 0, sizeof(s_state));
+    s_state.agent_x = s_start_x;
+    s_state.agent_y = s_start_y;
+    memset(s_demo_visited, 0, sizeof(s_demo_visited));
+    memset(s_infer_visited, 0, sizeof(s_infer_visited));
+    s_demo_visited[s_start_y][s_start_x] = 1U;
+    s_infer_visited[s_start_y][s_start_x] = 1U;
+    s_mode_state = mode_state;
+    s_q_state = q_state;
+    render_current_mode(RT_TRUE, Q_TRAINING_UI_NONE);
+    lv_unlock();
+    return RT_EOK;
 }

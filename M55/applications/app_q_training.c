@@ -52,6 +52,31 @@ rt_err_t q_training_get_ui_state(q_training_ui_state_t *state)
     return RT_EOK;
 }
 
+rt_err_t q_training_reset(void)
+{
+    rt_uint32_t revision;
+
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    if (s_training_active)
+    {
+        rt_mutex_release(&s_training_lock);
+        return -RT_EBUSY;
+    }
+
+    q_agent_reset(&s_q_agent);
+    memset(&s_training_stats, 0, sizeof(s_training_stats));
+    revision = s_ui_state.revision;
+    memset(&s_ui_state, 0, sizeof(s_ui_state));
+    s_ui_state.revision = revision;
+    s_ui_state.phase = Q_TRAINING_UI_READY;
+    s_ui_state.epsilon_milli =
+        (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
+    ui_state_publish_locked();
+    rt_mutex_release(&s_training_lock);
+    app_mode_set(APP_MODE_TRAIN);
+    return RT_EOK;
+}
+
 static rt_err_t command_count(int argc,
                               char **argv,
                               rt_uint32_t default_value,
@@ -129,6 +154,11 @@ static int q_pretrain_cmd(int argc, char **argv)
     if (argc != 1)
     {
         rt_kprintf("Usage: q_pretrain\n");
+        return -RT_EINVAL;
+    }
+    if (maze_env_map_revision() != 1U)
+    {
+        rt_kprintf("[Q] demonstration pretrain unavailable for runtime map\n");
         return -RT_EINVAL;
     }
     if (!training_try_start())
@@ -291,12 +321,18 @@ static int q_train_cmd(int argc, char **argv)
 {
     rt_uint32_t episodes;
     rt_thread_t thread;
+    maze_env_t initial_env;
 
     if (command_count(argc, argv, Q_TRAIN_DEFAULT_EPISODES,
                       Q_TRAIN_MAX_EPISODES, &episodes) != RT_EOK)
     {
         rt_kprintf("Usage: q_train [1-%u]\n", Q_TRAIN_MAX_EPISODES);
         return -RT_EINVAL;
+    }
+    if (maze_env_init(&initial_env, 0U) != RT_EOK)
+    {
+        rt_kprintf("[Q] environment init failed\n");
+        return -RT_ERROR;
     }
     if (!training_try_start())
     {
@@ -307,8 +343,8 @@ static int q_train_cmd(int argc, char **argv)
 
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     s_ui_state.phase = Q_TRAINING_UI_TRAINING;
-    s_ui_state.agent_x = 0U;
-    s_ui_state.agent_y = 0U;
+    s_ui_state.agent_x = initial_env.agent_x;
+    s_ui_state.agent_y = initial_env.agent_y;
     s_ui_state.training_steps = 0U;
     s_ui_state.current_episode = 0U;
     s_ui_state.target_episodes = episodes;
@@ -457,30 +493,18 @@ MSH_CMD_EXPORT_ALIAS(q_stats_cmd, q_stats, Print Q training statistics);
 
 static int q_reset_cmd(int argc, char **argv)
 {
-    rt_uint32_t revision;
-
-    (void)argc;
     (void)argv;
 
-    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
-    if (s_training_active)
+    if (argc != 1)
     {
-        rt_mutex_release(&s_training_lock);
+        rt_kprintf("Usage: q_reset\n");
+        return -RT_EINVAL;
+    }
+    if (q_training_reset() != RT_EOK)
+    {
         rt_kprintf("[Q] training busy\n");
         return -RT_EBUSY;
     }
-
-    q_agent_reset(&s_q_agent);
-    memset(&s_training_stats, 0, sizeof(s_training_stats));
-    revision = s_ui_state.revision;
-    memset(&s_ui_state, 0, sizeof(s_ui_state));
-    s_ui_state.revision = revision;
-    s_ui_state.phase = Q_TRAINING_UI_READY;
-    s_ui_state.epsilon_milli =
-        (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
-    ui_state_publish_locked();
-    rt_mutex_release(&s_training_lock);
-    app_mode_set(APP_MODE_TRAIN);
     rt_kprintf("[Q] reset complete\n");
     return RT_EOK;
 }

@@ -29,6 +29,15 @@ typedef enum
 
 typedef enum
 {
+    MAZE_ENV_MAP_VALID = 0,
+    MAZE_ENV_MAP_INVALID_CELL,
+    MAZE_ENV_MAP_START_COUNT,
+    MAZE_ENV_MAP_GOAL_COUNT,
+    MAZE_ENV_MAP_UNREACHABLE,
+} maze_env_map_validation_t;
+
+typedef enum
+{
     MAZE_ENV_STEP_MOVED = 0,
     MAZE_ENV_STEP_COLLISION,
     MAZE_ENV_STEP_GOAL,
@@ -58,6 +67,15 @@ maze_env_step_result_t maze_env_step(maze_env_t *env,
 maze_env_cell_t maze_env_cell_at(rt_uint8_t map_id,
                                  rt_uint8_t x,
                                  rt_uint8_t y);
+maze_env_map_validation_t maze_env_validate_map(
+    const rt_uint8_t map[MAZE_ENV_SIZE][MAZE_ENV_SIZE],
+    rt_uint16_t *shortest_path);
+maze_env_map_validation_t maze_env_set_map(
+    const rt_uint8_t map[MAZE_ENV_SIZE][MAZE_ENV_SIZE],
+    rt_uint16_t *shortest_path);
+rt_err_t maze_env_copy_map(
+    rt_uint8_t map[MAZE_ENV_SIZE][MAZE_ENV_SIZE]);
+rt_uint32_t maze_env_map_revision(void);
 rt_uint16_t maze_env_state_index(rt_uint8_t x, rt_uint8_t y);
 void maze_env_get_normalized_state(const maze_env_t *env, float state[2]);
 rt_bool_t maze_env_is_done(const maze_env_t *env);

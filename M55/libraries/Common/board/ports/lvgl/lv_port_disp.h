@@ -32,6 +32,7 @@ extern "C" {
 *******************************************************************************/
 #define MY_DISP_HOR_RES     (512U)//(512U)//水平
 #define MY_DISP_VER_RES     (800U) //(800U)//竖直
+#define MY_DISP_ROTATION    LV_DISPLAY_ROTATION_90
 
 extern cy_stc_gfx_context_t gfx_context;
 extern void *frame_buffer1;

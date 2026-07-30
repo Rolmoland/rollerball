@@ -12,19 +12,19 @@ static struct rt_mutex g_gesture_lock;
 
 static gesture_dir_t compute_gesture(float ax, float ay, gesture_dir_t prev)
 {
-    /* Board's physical forward/back axis reads on ax, left/right reads on ay
-     * (confirmed on hardware - swapped from the initial guess) */
+    /* Display connector is on the user's right: forward/back reads on ay,
+     * while left/right reads on ax. */
 
     /* Hold the current gesture until tilt falls back below the lower threshold */
-    if (prev == GESTURE_LEFT  && ay >  TILT_THRESH_OFF_MG) return GESTURE_LEFT;
-    if (prev == GESTURE_RIGHT && ay < -TILT_THRESH_OFF_MG) return GESTURE_RIGHT;
-    if (prev == GESTURE_UP    && ax < -TILT_THRESH_OFF_MG) return GESTURE_UP;
-    if (prev == GESTURE_DOWN  && ax >  TILT_THRESH_OFF_MG) return GESTURE_DOWN;
+    if (prev == GESTURE_LEFT  && ax >  TILT_THRESH_OFF_MG) return GESTURE_LEFT;
+    if (prev == GESTURE_RIGHT && ax < -TILT_THRESH_OFF_MG) return GESTURE_RIGHT;
+    if (prev == GESTURE_UP    && ay >  TILT_THRESH_OFF_MG) return GESTURE_UP;
+    if (prev == GESTURE_DOWN  && ay < -TILT_THRESH_OFF_MG) return GESTURE_DOWN;
 
-    if (ay >  TILT_THRESH_ON_MG) return GESTURE_LEFT;
-    if (ay < -TILT_THRESH_ON_MG) return GESTURE_RIGHT;
-    if (ax < -TILT_THRESH_ON_MG) return GESTURE_UP;
-    if (ax >  TILT_THRESH_ON_MG) return GESTURE_DOWN;
+    if (ax >  TILT_THRESH_ON_MG) return GESTURE_LEFT;
+    if (ax < -TILT_THRESH_ON_MG) return GESTURE_RIGHT;
+    if (ay >  TILT_THRESH_ON_MG) return GESTURE_UP;
+    if (ay < -TILT_THRESH_ON_MG) return GESTURE_DOWN;
 
     return GESTURE_NONE;
 }

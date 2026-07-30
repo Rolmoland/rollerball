@@ -13,6 +13,7 @@
 * Header Files
 *******************************************************************************/
 #include "lv_port_disp.h"
+#include "lv_draw_sw.h"
 #include <stdbool.h>
 #include <string.h>
 #include "cy_graphics.h"
@@ -30,6 +31,8 @@ void *frame_buffer1 = &disp_buf1;
 void *frame_buffer2 = &disp_buf2;
 
 cy_stc_gfx_context_t gfx_context;
+extern uint8_t graphics_buffer[];
+static uint8_t s_output_buffer_index;
 
 
 /*******************************************************************************
@@ -52,9 +55,20 @@ cy_stc_gfx_context_t gfx_context;
 static void LV_ATTRIBUTE_FAST_MEM disp_flush(lv_display_t *disp_drv, const lv_area_t *area,
         uint8_t *color_p)
 {
+    uint8_t *output_buffer;
+
     CY_UNUSED_PARAMETER(area);
 
-    Cy_GFXSS_Set_FrameBuffer((GFXSS_Type*) GFXSS, (uint32_t*) color_p,
+    output_buffer = s_output_buffer_index == 0U ? disp_buf1 : disp_buf2;
+    s_output_buffer_index ^= 1U;
+    lv_draw_sw_rotate(color_p, output_buffer,
+                      MY_DISP_VER_RES, MY_DISP_HOR_RES,
+                      MY_DISP_VER_RES * sizeof(lv_color16_t),
+                      MY_DISP_HOR_RES * sizeof(lv_color16_t),
+                      MY_DISP_ROTATION, LV_COLOR_FORMAT_RGB565);
+
+    Cy_GFXSS_Set_FrameBuffer((GFXSS_Type*) GFXSS,
+                             (uint32_t*) output_buffer,
                              &gfx_context);
 
     /* Inform the graphics library that you are ready with the flushing */
@@ -102,17 +116,18 @@ void lv_port_disp_init(void)
 {
     memset(disp_buf1, 0, sizeof(disp_buf1));
     memset(disp_buf2, 0, sizeof(disp_buf2));
+    memset(graphics_buffer, 0, sizeof(disp_buf1));
+    s_output_buffer_index = 0U;
 
     lv_display_t *disp = lv_display_create(MY_DISP_HOR_RES, MY_DISP_VER_RES);
 
     lv_display_set_flush_cb(disp, disp_flush);
+    lv_display_set_rotation(disp, MY_DISP_ROTATION);
 
     lv_tick_set_cb(&rt_tick_get_millisecond);
 
-    lv_display_set_buffers(disp, disp_buf1, disp_buf2, sizeof(disp_buf1),
+    lv_display_set_buffers(disp, graphics_buffer, NULL, sizeof(disp_buf1),
                            LV_DISPLAY_RENDER_MODE_FULL);//
-
-    // lv_display_set_rotation(disp, LV_DISPLAY_ROTATION_270);
 
     Cy_GFXSS_Clear_DC_Interrupt((GFXSS_Type*) GFXSS, &gfx_context);
 }

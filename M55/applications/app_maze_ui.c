@@ -9,15 +9,29 @@
 #include "app_random_baseline.h"
 #include "module_maze_env.h"
 
-#define MAZE_SIZE        MAZE_ENV_SIZE
-#define MAZE_CELL_PX     40
-#define MAZE_ORIGIN_X    56
-#define MAZE_ORIGIN_Y    96
-#define UI_POLL_MS       100
+LV_FONT_DECLARE(app_font_zh_20);
+
+#define MAZE_SIZE             MAZE_ENV_SIZE
+#define MAZE_CELL_PX          40
+#define MAZE_ORIGIN_X         32
+#define MAZE_ORIGIN_Y         80
+#define STATUS_ORIGIN_X       32
+#define STATUS_ORIGIN_Y       20
+#define STATUS_WIDTH          736
+#define STATS_ORIGIN_X        464
+#define STATS_ORIGIN_Y        88
+#define STATS_WIDTH           320
+#define STATS_LINE_SPACE      8
+#define COMPARE_MODEL_WIDTH   110
+#define COMPARE_VALUE_WIDTH   90
+#define COMPARE_GAP_WIDTH     120
+#define COMPARE_ROW_COUNT     4
+#define UI_POLL_MS            100
 
 static lv_obj_t *s_table;
 static lv_obj_t *s_status_label;
 static lv_obj_t *s_stats_label;
+static lv_obj_t *s_compare_table;
 static lv_obj_t *s_complete_panel;
 static lv_obj_t *s_complete_label;
 static maze_ui_state_t s_state;
@@ -35,11 +49,16 @@ static rt_bool_t s_ready = RT_FALSE;
 
 static void set_reward_text(lv_obj_t *label, const maze_ui_state_t *state);
 
+static const char *active_map_name(void)
+{
+    return maze_env_map_revision() == 1U ? "默认地图" : "随机地图";
+}
+
 static void set_status_text(void)
 {
-    lv_label_set_text_fmt(s_status_label, "DEMO  MAP %u  %s  N=%u",
-                          s_state.map_id,
-                          s_state.done ? "COMPLETE" : "RUNNING",
+    lv_label_set_text_fmt(s_status_label, "演示  %s  %s  样本=%u",
+                          active_map_name(),
+                          s_state.done ? "完成" : "运行中",
                           s_demo_count);
 }
 
@@ -47,17 +66,17 @@ static const char *training_status_text(const q_training_ui_state_t *state)
 {
     if (state->phase == Q_TRAINING_UI_PRETRAIN)
     {
-        return "TRAIN PREP";
+        return "Q-learning 准备中";
     }
     if (state->phase == Q_TRAINING_UI_TRAINING)
     {
-        return "TRAIN RUNNING";
+        return "Q-learning 训练中";
     }
     if (state->current_episode > 0U)
     {
-        return "TRAIN COMPLETE";
+        return "Q-learning 训练完成";
     }
-    return "TRAIN READY";
+    return "Q-learning 训练就绪";
 }
 
 static void set_training_text(const q_training_ui_state_t *state)
@@ -66,13 +85,14 @@ static void set_training_text(const q_training_ui_state_t *state)
                             -state->training_reward_tenths :
                             state->training_reward_tenths;
 
-    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu  DEMO N=%u",
+    lv_label_set_text_fmt(s_status_label, "%s  %s  演示样本=%u",
                           training_status_text(state),
-                          (unsigned long)maze_env_map_revision(),
+                          active_map_name(),
                           s_demo_count);
     lv_label_set_text_fmt(s_stats_label,
-                          "EP %lu/%lu  OK %lu  EPS %lu.%03lu\n"
-                          "REWARD %s%ld.%ld  STEPS %u",
+                          "回合 %lu/%lu  成功 %lu\n"
+                          "探索率 %lu.%03lu\n"
+                          "奖励 %s%ld.%ld  步数 %u",
                           (unsigned long)state->current_episode,
                           (unsigned long)state->target_episodes,
                           (unsigned long)state->successful_episodes,
@@ -93,25 +113,26 @@ static void set_inference_text(const q_training_ui_state_t *state)
 
     if (state->phase == Q_TRAINING_UI_INFERENCE)
     {
-        status = "INFER RUNNING";
+        status = "Q-learning 推理中";
     }
     else if (state->inference_complete)
     {
         status = state->inference_success ?
-                 "INFER COMPLETE" : "INFER FAILED";
+                 "Q-learning 推理完成" : "Q-learning 推理失败";
     }
     else
     {
-        status = "INFER READY";
+        status = "Q-learning 推理就绪";
     }
 
-    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu  DEMO N=%u",
+    lv_label_set_text_fmt(s_status_label, "%s  %s  演示样本=%u",
                           status,
-                          (unsigned long)maze_env_map_revision(),
+                          active_map_name(),
                           s_demo_count);
     lv_label_set_text_fmt(s_stats_label,
-                          "EP %lu/%lu  EPS %lu.%03lu\n"
-                          "REWARD %s%ld.%ld  STEPS %u",
+                          "回合 %lu/%lu\n"
+                          "探索率 %lu.%03lu\n"
+                          "奖励 %s%ld.%ld  步数 %u",
                           (unsigned long)state->current_episode,
                           (unsigned long)state->target_episodes,
                           (unsigned long)(state->epsilon_milli / 1000U),
@@ -127,13 +148,13 @@ static const char *dqn_training_status_text(
 {
     if (state->phase == DQN_TRAINING_UI_TRAINING)
     {
-        return "DQN TRAIN RUNNING";
+        return "DQN 训练中";
     }
     if (state->current_episode > 0U)
     {
-        return "DQN TRAIN COMPLETE";
+        return "DQN 训练完成";
     }
-    return "DQN TRAIN READY";
+    return "DQN 训练就绪";
 }
 
 static void set_dqn_training_text(const dqn_training_ui_state_t *state)
@@ -142,13 +163,15 @@ static void set_dqn_training_text(const dqn_training_ui_state_t *state)
                             -state->training_reward_tenths :
                             state->training_reward_tenths;
 
-    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu",
+    lv_label_set_text_fmt(s_status_label, "%s  %s",
                           dqn_training_status_text(state),
-                          (unsigned long)maze_env_map_revision());
+                          active_map_name());
     lv_label_set_text_fmt(s_stats_label,
-                          "EP %lu/%lu  OK %lu  EPS %lu.%03lu\n"
-                          "REWARD %s%ld.%ld  STEPS %u\n"
-                          "LOSS %lu.%03lu  BUF %u  UPD %lu",
+                          "回合 %lu/%lu  成功 %lu\n"
+                          "探索率 %lu.%03lu\n"
+                          "奖励 %s%ld.%ld  步数 %u\n"
+                          "损失 %lu.%03lu\n"
+                          "样本 %u  更新 %lu",
                           (unsigned long)state->current_episode,
                           (unsigned long)state->target_episodes,
                           (unsigned long)state->successful_episodes,
@@ -173,24 +196,25 @@ static void set_dqn_inference_text(const dqn_training_ui_state_t *state)
 
     if (state->phase == DQN_TRAINING_UI_INFERENCE)
     {
-        status = "DQN INFER RUNNING";
+        status = "DQN 推理中";
     }
     else if (state->inference_complete)
     {
         status = state->inference_success ?
-                 "DQN INFER COMPLETE" : "DQN INFER FAILED";
+                 "DQN 推理完成" : "DQN 推理失败";
     }
     else
     {
-        status = "DQN INFER READY";
+        status = "DQN 推理就绪";
     }
 
-    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu",
+    lv_label_set_text_fmt(s_status_label, "%s  %s",
                           status,
-                          (unsigned long)maze_env_map_revision());
+                          active_map_name());
     lv_label_set_text_fmt(s_stats_label,
-                          "EPS %lu.%03lu  UPD %lu\n"
-                          "REWARD %s%ld.%ld  STEPS %u",
+                          "探索率 %lu.%03lu\n"
+                          "更新 %lu\n"
+                          "奖励 %s%ld.%ld  步数 %u",
                           (unsigned long)(state->epsilon_milli / 1000U),
                           (unsigned long)(state->epsilon_milli % 1000U),
                           (unsigned long)state->train_updates,
@@ -218,101 +242,101 @@ static rt_uint16_t latest_completed_demo_steps(void)
     return 0U;
 }
 
-static void set_compare_text(const q_training_ui_state_t *q_state,
-                             const dqn_training_ui_state_t *dqn_state,
-                             const random_baseline_ui_state_t *random_state)
+static void set_compare_result(rt_uint32_t row,
+                               rt_bool_t complete,
+                               rt_bool_t success,
+                               rt_uint16_t steps,
+                               rt_uint16_t human_steps)
+{
+    if (!complete)
+    {
+        lv_table_set_cell_value(s_compare_table, row, 1, "--");
+        lv_table_set_cell_value(s_compare_table, row, 2, "差距 --");
+        return;
+    }
+    if (!success)
+    {
+        lv_table_set_cell_value(s_compare_table, row, 1, "失败");
+        lv_table_set_cell_value(s_compare_table, row, 2, "差距 --");
+        return;
+    }
+
+    lv_table_set_cell_value_fmt(s_compare_table, row, 1,
+                                "步数 %u", (unsigned int)steps);
+    if (human_steps > 0U)
+    {
+        int gap = (int)steps - (int)human_steps;
+        int gap_abs = gap < 0 ? -gap : gap;
+
+        lv_table_set_cell_value_fmt(s_compare_table, row, 2,
+                                    "差距 %s%d",
+                                    gap < 0 ? "-" : "+", gap_abs);
+    }
+    else
+    {
+        lv_table_set_cell_value(s_compare_table, row, 2, "差距 --");
+    }
+}
+
+static void set_compare_table(const q_training_ui_state_t *q_state,
+                              const dqn_training_ui_state_t *dqn_state,
+                              const random_baseline_ui_state_t *random_state)
 {
     rt_uint16_t human_steps = latest_completed_demo_steps();
-    char human_text[20];
-    char q_text[32];
-    char dqn_text[20];
+
+    if (random_state->phase == RANDOM_BASELINE_UI_RUNNING)
+    {
+        lv_label_set_text_fmt(s_status_label,
+                              "随机策略运行中  %s  回合 %lu/%lu",
+                              active_map_name(),
+                              (unsigned long)random_state->current_episode,
+                              (unsigned long)random_state->target_episodes);
+    }
+    else
+    {
+        lv_label_set_text_fmt(s_status_label, "策略对比  %s",
+                              active_map_name());
+    }
+
+    if (random_state->target_episodes == 0U)
+    {
+        lv_table_set_cell_value(s_compare_table, 0, 1, "--");
+        lv_table_set_cell_value(s_compare_table, 0, 2, "成功 --");
+    }
+    else
+    {
+        if (random_state->successful_episodes == 0U)
+        {
+            lv_table_set_cell_value(s_compare_table, 0, 1, "平均 --");
+        }
+        else
+        {
+            lv_table_set_cell_value_fmt(
+                s_compare_table, 0, 1, "平均 %u",
+                (unsigned int)random_state->average_success_steps);
+        }
+        lv_table_set_cell_value_fmt(
+            s_compare_table, 0, 2, "成功 %lu",
+            (unsigned long)random_state->successful_episodes);
+    }
 
     if (human_steps > 0U)
     {
-        rt_snprintf(human_text, sizeof(human_text), "HUMAN %u",
-                    (unsigned int)human_steps);
+        lv_table_set_cell_value_fmt(s_compare_table, 1, 1,
+                                    "步数 %u",
+                                    (unsigned int)human_steps);
     }
     else
     {
-        rt_snprintf(human_text, sizeof(human_text), "HUMAN --");
-    }
-    if (q_state->inference_complete)
-    {
-        if (!q_state->inference_success)
-        {
-            rt_snprintf(q_text, sizeof(q_text), "Q FAIL");
-        }
-        else if (human_steps > 0U)
-        {
-            int saved_steps = (int)human_steps -
-                              (int)q_state->inference_steps;
-
-            rt_snprintf(q_text, sizeof(q_text), "Q %u SAVE %d",
-                        (unsigned int)q_state->inference_steps,
-                        saved_steps);
-        }
-        else
-        {
-            rt_snprintf(q_text, sizeof(q_text), "Q %u",
-                        (unsigned int)q_state->inference_steps);
-        }
-    }
-    else
-    {
-        rt_snprintf(q_text, sizeof(q_text), "Q --");
-    }
-    if (dqn_state->inference_complete)
-    {
-        if (dqn_state->inference_success)
-        {
-            rt_snprintf(dqn_text, sizeof(dqn_text), "DQN %u",
-                        (unsigned int)dqn_state->inference_steps);
-        }
-        else
-        {
-            rt_snprintf(dqn_text, sizeof(dqn_text), "DQN FAIL");
-        }
-    }
-    else
-    {
-        rt_snprintf(dqn_text, sizeof(dqn_text), "DQN --");
+        lv_table_set_cell_value(s_compare_table, 1, 1, "步数 --");
     }
 
-    lv_label_set_text_fmt(
-        s_status_label, "%s  MAP R%lu",
-        random_state->phase == RANDOM_BASELINE_UI_RUNNING ?
-        "RANDOM RUNNING" : "COMPARE",
-        (unsigned long)maze_env_map_revision());
-    if (random_state->phase == RANDOM_BASELINE_UI_RUNNING)
-    {
-        lv_label_set_text_fmt(s_stats_label,
-                              "RND EP %lu/%lu  OK %lu\n%s  %s  %s",
-                              (unsigned long)random_state->current_episode,
-                              (unsigned long)random_state->target_episodes,
-                              (unsigned long)random_state->successful_episodes,
-                              human_text, q_text, dqn_text);
-    }
-    else if (random_state->target_episodes == 0U)
-    {
-        lv_label_set_text_fmt(s_stats_label, "RND --\n%s  %s  %s",
-                              human_text, q_text, dqn_text);
-    }
-    else if (random_state->successful_episodes == 0U)
-    {
-        lv_label_set_text_fmt(s_stats_label,
-                              "RND 0/%lu  AVG --\n%s  %s  %s",
-                              (unsigned long)random_state->target_episodes,
-                              human_text, q_text, dqn_text);
-    }
-    else
-    {
-        lv_label_set_text_fmt(s_stats_label,
-                              "RND %lu/%lu  AVG %u\n%s  %s  %s",
-                              (unsigned long)random_state->successful_episodes,
-                              (unsigned long)random_state->target_episodes,
-                              (unsigned int)random_state->average_success_steps,
-                              human_text, q_text, dqn_text);
-    }
+    set_compare_result(2, q_state->inference_complete,
+                       q_state->inference_success,
+                       q_state->inference_steps, human_steps);
+    set_compare_result(3, dqn_state->inference_complete,
+                       dqn_state->inference_success,
+                       dqn_state->inference_steps, human_steps);
 }
 
 static void hide_complete_panel(void)
@@ -323,7 +347,7 @@ static void hide_complete_panel(void)
 static void show_physical_complete(void)
 {
     lv_label_set_text(s_complete_label,
-                      "GOAL REACHED\nPRESS SW2 TO RESET");
+                      "到达终点\n按 SW2 复位");
     lv_obj_center(s_complete_label);
     lv_obj_set_style_bg_color(s_complete_panel,
                               lv_color_hex(0x2E7D32), 0);
@@ -335,8 +359,8 @@ static void show_inference_complete(const q_training_ui_state_t *state)
 {
     lv_label_set_text_fmt(s_complete_label,
                           state->inference_success ?
-                          "Q INFERENCE COMPLETE\n%u STEPS" :
-                          "Q INFERENCE FAILED\n%u STEPS",
+                          "Q-learning 推理完成\n%u 步" :
+                          "Q-learning 推理失败\n%u 步",
                           (unsigned int)state->inference_steps);
     lv_obj_center(s_complete_label);
     lv_obj_set_style_bg_color(s_complete_panel,
@@ -353,8 +377,8 @@ static void show_dqn_inference_complete(
 {
     lv_label_set_text_fmt(s_complete_label,
                           state->inference_success ?
-                          "DQN INFERENCE COMPLETE\n%u STEPS" :
-                          "DQN INFERENCE FAILED\n%u STEPS",
+                          "DQN 推理完成\n%u 步" :
+                          "DQN 推理失败\n%u 步",
                           (unsigned int)state->inference_steps);
     lv_obj_center(s_complete_label);
     lv_obj_set_style_bg_color(s_complete_panel,
@@ -388,6 +412,17 @@ static void render_current_mode(rt_bool_t mode_changed,
                                 q_training_ui_phase_t old_q_phase,
                                 dqn_training_ui_phase_t old_dqn_phase)
 {
+    if (s_mode_state.mode == APP_MODE_COMPARE)
+    {
+        lv_obj_add_flag(s_stats_label, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_remove_flag(s_compare_table, LV_OBJ_FLAG_HIDDEN);
+    }
+    else
+    {
+        lv_obj_remove_flag(s_stats_label, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_add_flag(s_compare_table, LV_OBJ_FLAG_HIDDEN);
+    }
+
     if (s_mode_state.mode == APP_MODE_DEMO)
     {
         render_physical_state();
@@ -466,7 +501,7 @@ static void render_current_mode(rt_bool_t mode_changed,
     else
     {
         ball_ui_set_cell_locked(s_start_x, s_start_y);
-        set_compare_text(&s_q_state, &s_dqn_state, &s_random_state);
+        set_compare_table(&s_q_state, &s_dqn_state, &s_random_state);
         hide_complete_panel();
     }
     lv_obj_invalidate(s_table);
@@ -586,7 +621,7 @@ static void set_reward_text(lv_obj_t *label, const maze_ui_state_t *state)
     int total_abs = state->total_reward_tenths < 0 ? -state->total_reward_tenths : state->total_reward_tenths;
 
     lv_label_set_text_fmt(label,
-                          "STEP %u  TOTAL %u  HIT %u\nREWARD %s%d.%d  SUM %s%d.%d",
+                          "步数 %u  总步数 %u  碰撞 %u\n奖励 %s%d.%d  累计 %s%d.%d",
                           state->step_count, state->total_steps, state->collision_count,
                           state->last_reward_tenths < 0 ? "-" : "",
                           last_abs / 10, last_abs % 10,
@@ -607,8 +642,11 @@ void maze_ui_init(void)
     }
 
     s_status_label = lv_label_create(lv_screen_active());
-    lv_obj_set_pos(s_status_label, MAZE_ORIGIN_X, 32);
-    lv_label_set_text_fmt(s_status_label, "MAP 0  READY  DEMO N=%u",
+    lv_obj_set_pos(s_status_label, STATUS_ORIGIN_X, STATUS_ORIGIN_Y);
+    lv_obj_set_width(s_status_label, STATUS_WIDTH);
+    lv_obj_set_style_text_font(s_status_label, &app_font_zh_20, 0);
+    lv_label_set_text_fmt(s_status_label, "%s  就绪  演示样本=%u",
+                          active_map_name(),
                           s_demo_count);
 
     s_table = lv_table_create(lv_screen_active());
@@ -624,8 +662,8 @@ void maze_ui_init(void)
         {
             const char *text = "";
             maze_env_cell_t cell = maze_env_cell_at(0, col, row);
-            if (cell == MAZE_ENV_CELL_START) text = "S";
-            if (cell == MAZE_ENV_CELL_GOAL) text = "G";
+            if (cell == MAZE_ENV_CELL_START) text = "起";
+            if (cell == MAZE_ENV_CELL_GOAL) text = "终";
             lv_table_set_cell_value(s_table, row, col, text);
         }
     }
@@ -640,14 +678,55 @@ void maze_ui_init(void)
     lv_obj_set_style_border_width(s_table, 0, LV_PART_MAIN);
     lv_obj_set_style_pad_all(s_table, 0, LV_PART_MAIN);
     lv_obj_set_style_radius(s_table, 0, LV_PART_MAIN);
+    lv_obj_set_style_text_font(s_table, &app_font_zh_20, LV_PART_ITEMS);
     lv_obj_remove_flag(s_table, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_remove_style(s_table, RT_NULL, LV_PART_ITEMS | LV_STATE_PRESSED);
     lv_obj_add_event_cb(s_table, maze_draw_event, LV_EVENT_DRAW_TASK_ADDED, RT_NULL);
     lv_obj_add_flag(s_table, LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS);
 
     s_stats_label = lv_label_create(lv_screen_active());
-    lv_obj_set_pos(s_stats_label, MAZE_ORIGIN_X, 528);
-    lv_label_set_text(s_stats_label, "STEP 0  TOTAL 0  HIT 0\nREWARD 0.0  SUM 0.0");
+    lv_obj_set_pos(s_stats_label, STATS_ORIGIN_X, STATS_ORIGIN_Y);
+    lv_obj_set_width(s_stats_label, STATS_WIDTH);
+    lv_label_set_long_mode(s_stats_label, LV_LABEL_LONG_WRAP);
+    lv_obj_set_style_text_font(s_stats_label, &app_font_zh_20, 0);
+    lv_obj_set_style_text_line_space(s_stats_label, STATS_LINE_SPACE, 0);
+    lv_label_set_text(s_stats_label,
+                      "步数 0  总步数 0  碰撞 0\n奖励 0.0  累计 0.0");
+
+    s_compare_table = lv_table_create(lv_screen_active());
+    lv_table_set_row_count(s_compare_table, COMPARE_ROW_COUNT);
+    lv_table_set_column_count(s_compare_table, 3);
+    lv_table_set_column_width(s_compare_table, 0, COMPARE_MODEL_WIDTH);
+    lv_table_set_column_width(s_compare_table, 1, COMPARE_VALUE_WIDTH);
+    lv_table_set_column_width(s_compare_table, 2, COMPARE_GAP_WIDTH);
+    lv_table_set_cell_value(s_compare_table, 0, 0, "随机策略");
+    lv_table_set_cell_value(s_compare_table, 0, 1, "--");
+    lv_table_set_cell_value(s_compare_table, 0, 2, "成功 --");
+    lv_table_set_cell_value(s_compare_table, 1, 0, "人工");
+    lv_table_set_cell_value(s_compare_table, 1, 1, "步数 --");
+    lv_table_set_cell_value(s_compare_table, 1, 2, "");
+    lv_table_set_cell_value(s_compare_table, 2, 0, "Q-learning");
+    lv_table_set_cell_value(s_compare_table, 2, 1, "--");
+    lv_table_set_cell_value(s_compare_table, 2, 2, "差距 --");
+    lv_table_set_cell_value(s_compare_table, 3, 0, "DQN");
+    lv_table_set_cell_value(s_compare_table, 3, 1, "--");
+    lv_table_set_cell_value(s_compare_table, 3, 2, "差距 --");
+    lv_obj_set_pos(s_compare_table, STATS_ORIGIN_X, STATS_ORIGIN_Y);
+    lv_obj_set_size(s_compare_table, STATS_WIDTH, LV_SIZE_CONTENT);
+    lv_obj_set_style_text_font(s_compare_table, &app_font_zh_20,
+                               LV_PART_ITEMS);
+    lv_obj_set_style_pad_ver(s_compare_table, 8, LV_PART_ITEMS);
+    lv_obj_set_style_pad_hor(s_compare_table, 4, LV_PART_ITEMS);
+    lv_obj_set_style_border_width(s_compare_table, 1, LV_PART_ITEMS);
+    lv_obj_set_style_border_color(s_compare_table,
+                                  lv_color_hex(0xCFD8DC), LV_PART_ITEMS);
+    lv_obj_set_style_border_width(s_compare_table, 0, LV_PART_MAIN);
+    lv_obj_set_style_pad_all(s_compare_table, 0, LV_PART_MAIN);
+    lv_obj_set_style_radius(s_compare_table, 0, LV_PART_MAIN);
+    lv_obj_remove_flag(s_compare_table, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_remove_style(s_compare_table, RT_NULL,
+                        LV_PART_ITEMS | LV_STATE_PRESSED);
+    lv_obj_add_flag(s_compare_table, LV_OBJ_FLAG_HIDDEN);
 
     memset(&s_state, 0, sizeof(s_state));
     memset(s_demo_visited, 0, sizeof(s_demo_visited));
@@ -661,7 +740,7 @@ void maze_ui_init(void)
 
     s_complete_panel = lv_obj_create(lv_screen_active());
     lv_obj_remove_flag(s_complete_panel, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_set_size(s_complete_panel, 360, 140);
+    lv_obj_set_size(s_complete_panel, 400, 160);
     lv_obj_align(s_complete_panel, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_style_bg_color(s_complete_panel, lv_color_hex(0x2E7D32), 0);
     lv_obj_set_style_bg_opa(s_complete_panel, LV_OPA_COVER, 0);
@@ -669,7 +748,10 @@ void maze_ui_init(void)
     lv_obj_add_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
 
     s_complete_label = lv_label_create(s_complete_panel);
-    lv_label_set_text(s_complete_label, "GOAL REACHED\nPRESS SW2 TO RESET");
+    lv_obj_set_style_text_font(s_complete_label, &app_font_zh_20, 0);
+    lv_obj_set_style_text_line_space(s_complete_label,
+                                     STATS_LINE_SPACE, 0);
+    lv_label_set_text(s_complete_label, "到达终点\n按 SW2 复位");
     lv_obj_set_style_text_color(s_complete_label, lv_color_hex(0xFFFFFF), 0);
     lv_obj_set_style_text_align(s_complete_label, LV_TEXT_ALIGN_CENTER, 0);
     lv_obj_center(s_complete_label);
@@ -735,7 +817,7 @@ void maze_ui_set_demo_count(rt_uint16_t count)
     }
     else
     {
-        set_compare_text(&s_q_state, &s_dqn_state, &s_random_state);
+        set_compare_table(&s_q_state, &s_dqn_state, &s_random_state);
     }
     lv_unlock();
 }
@@ -775,11 +857,11 @@ rt_err_t maze_ui_reload_map(void)
 
             if (cell == MAZE_ENV_CELL_START)
             {
-                text = "S";
+                text = "起";
             }
             else if (cell == MAZE_ENV_CELL_GOAL)
             {
-                text = "G";
+                text = "终";
             }
             lv_table_set_cell_value(s_table, row, col, text);
         }

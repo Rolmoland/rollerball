@@ -54,4 +54,5 @@ doc/
 # Root-level planning docs (local only)
 # ============================================================
 /*.md
+!/README.md
 /.metadata/

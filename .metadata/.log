@@ -5798,3 +5798,6 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 
 !ENTRY org.rt-thread.studio.application 4 4 2026-07-31 01:50:04.906
 !MESSAGE end pkgs upgrade......
+
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-31 02:49:53.518
+!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==

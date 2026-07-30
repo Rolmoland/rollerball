@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "app_demo_collector.h"
+#include "app_q_training.h"
 #include "module_maze_env.h"
 #include "module_q_agent.h"
 
@@ -12,6 +13,7 @@
 #define Q_TRAIN_THREAD_STACK_SIZE       2048U
 #define Q_TRAIN_THREAD_PRIORITY         22U
 #define Q_TRAIN_THREAD_TIMESLICE        10U
+#define Q_INFER_UI_STEP_DELAY_MS         200U
 #define Q_DEMO_MOVE_PREFERENCE          0.25f
 #define Q_DEMO_COLLISION_PREFERENCE    -0.25f
 
@@ -27,8 +29,27 @@ typedef struct
 
 static q_agent_t s_q_agent;
 static q_training_stats_t s_training_stats;
+static q_training_ui_state_t s_ui_state;
 static struct rt_mutex s_training_lock;
 static rt_bool_t s_training_active;
+
+static void ui_state_publish_locked(void)
+{
+    s_ui_state.revision++;
+}
+
+rt_err_t q_training_get_ui_state(q_training_ui_state_t *state)
+{
+    if (state == RT_NULL)
+    {
+        return -RT_EINVAL;
+    }
+
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    *state = s_ui_state;
+    rt_mutex_release(&s_training_lock);
+    return RT_EOK;
+}
 
 static rt_err_t command_count(int argc,
                               char **argv,
@@ -114,9 +135,19 @@ static int q_pretrain_cmd(int argc, char **argv)
         rt_kprintf("[Q] training busy\n");
         return -RT_EBUSY;
     }
+
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    s_ui_state.phase = Q_TRAINING_UI_PRETRAIN;
+    ui_state_publish_locked();
+    rt_mutex_release(&s_training_lock);
+
     if (count == 0U)
     {
         rt_kprintf("[Q] no demonstration data\n");
+        rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+        s_ui_state.phase = Q_TRAINING_UI_READY;
+        ui_state_publish_locked();
+        rt_mutex_release(&s_training_lock);
         training_finish();
         return -RT_EEMPTY;
     }
@@ -155,6 +186,10 @@ static int q_pretrain_cmd(int argc, char **argv)
     }
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     s_training_stats.demonstration_seeds += seeds;
+    s_ui_state.phase = Q_TRAINING_UI_READY;
+    s_ui_state.demonstration_seeds =
+        s_training_stats.demonstration_seeds;
+    ui_state_publish_locked();
     rt_mutex_release(&s_training_lock);
     training_finish();
     rt_kprintf("[Q] pretrain complete samples=%u seeds=%u\n",
@@ -214,6 +249,14 @@ static void q_train_thread_entry(void *parameter)
             run_successes++;
         }
         q_agent_decay_epsilon(&s_q_agent);
+        s_ui_state.phase = Q_TRAINING_UI_TRAINING;
+        s_ui_state.current_episode = episode;
+        s_ui_state.successful_episodes = run_successes;
+        s_ui_state.steps = env.total_steps;
+        s_ui_state.reward_tenths = s_training_stats.last_reward_tenths;
+        s_ui_state.epsilon_milli =
+            (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
+        ui_state_publish_locked();
 
         if (episode == 1U || episode == episodes ||
             episode % Q_TRAIN_LOG_INTERVAL == 0U)
@@ -232,6 +275,10 @@ static void q_train_thread_entry(void *parameter)
             rt_thread_mdelay(1);
         }
     }
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    s_ui_state.phase = Q_TRAINING_UI_TRAINED;
+    ui_state_publish_locked();
+    rt_mutex_release(&s_training_lock);
     training_finish();
     rt_kprintf("[Q] train complete episodes=%u success=%u\n",
                episodes, run_successes);
@@ -254,6 +301,21 @@ static int q_train_cmd(int argc, char **argv)
         return -RT_EBUSY;
     }
 
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    s_ui_state.phase = Q_TRAINING_UI_TRAINING;
+    s_ui_state.agent_x = 0U;
+    s_ui_state.agent_y = 0U;
+    s_ui_state.inference_success = RT_FALSE;
+    s_ui_state.steps = 0U;
+    s_ui_state.current_episode = 0U;
+    s_ui_state.target_episodes = episodes;
+    s_ui_state.successful_episodes = 0U;
+    s_ui_state.reward_tenths = 0;
+    s_ui_state.epsilon_milli =
+        (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
+    ui_state_publish_locked();
+    rt_mutex_release(&s_training_lock);
+
     thread = rt_thread_create("q_train",
                               q_train_thread_entry,
                               (void *)(rt_ubase_t)episodes,
@@ -262,6 +324,10 @@ static int q_train_cmd(int argc, char **argv)
                               Q_TRAIN_THREAD_TIMESLICE);
     if (thread == RT_NULL)
     {
+        rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+        s_ui_state.phase = Q_TRAINING_UI_READY;
+        ui_state_publish_locked();
+        rt_mutex_release(&s_training_lock);
         training_finish();
         rt_kprintf("[Q] training thread create failed\n");
         return -RT_ERROR;
@@ -294,6 +360,16 @@ static int q_infer_cmd(int argc, char **argv)
         return -RT_ERROR;
     }
 
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    s_ui_state.phase = Q_TRAINING_UI_INFERENCE;
+    s_ui_state.agent_x = env.agent_x;
+    s_ui_state.agent_y = env.agent_y;
+    s_ui_state.inference_success = RT_FALSE;
+    s_ui_state.steps = 0U;
+    s_ui_state.reward_tenths = 0;
+    ui_state_publish_locked();
+    rt_mutex_release(&s_training_lock);
+
     for (step = 1U; step <= Q_TRAIN_MAX_STEPS; step++)
     {
         rt_uint8_t state_x = env.agent_x;
@@ -311,6 +387,18 @@ static int q_infer_cmd(int argc, char **argv)
                    step, state_x, state_y, action,
                    env.agent_x, env.agent_y,
                    (rt_int32_t)(reward * 10.0f), result, done);
+
+        rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+        s_ui_state.agent_x = env.agent_x;
+        s_ui_state.agent_y = env.agent_y;
+        s_ui_state.inference_success = done;
+        s_ui_state.steps = env.total_steps;
+        s_ui_state.reward_tenths =
+            (rt_int32_t)(env.cumulative_reward * 10.0f);
+        ui_state_publish_locked();
+        rt_mutex_release(&s_training_lock);
+        rt_thread_mdelay(Q_INFER_UI_STEP_DELAY_MS);
+
         if (done)
         {
             break;
@@ -320,6 +408,11 @@ static int q_infer_cmd(int argc, char **argv)
     rt_kprintf("[Q] infer success=%u steps=%u reward_x10=%d\n",
                maze_env_is_done(&env), env.total_steps,
                (rt_int32_t)(env.cumulative_reward * 10.0f));
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    s_ui_state.phase = Q_TRAINING_UI_INFERENCE_DONE;
+    s_ui_state.inference_success = maze_env_is_done(&env);
+    ui_state_publish_locked();
+    rt_mutex_release(&s_training_lock);
     training_finish();
     return RT_EOK;
 }
@@ -358,6 +451,8 @@ MSH_CMD_EXPORT_ALIAS(q_stats_cmd, q_stats, Print Q training statistics);
 
 static int q_reset_cmd(int argc, char **argv)
 {
+    rt_uint32_t revision;
+
     (void)argc;
     (void)argv;
 
@@ -371,6 +466,13 @@ static int q_reset_cmd(int argc, char **argv)
 
     q_agent_reset(&s_q_agent);
     memset(&s_training_stats, 0, sizeof(s_training_stats));
+    revision = s_ui_state.revision;
+    memset(&s_ui_state, 0, sizeof(s_ui_state));
+    s_ui_state.revision = revision;
+    s_ui_state.phase = Q_TRAINING_UI_READY;
+    s_ui_state.epsilon_milli =
+        (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
+    ui_state_publish_locked();
     rt_mutex_release(&s_training_lock);
     rt_kprintf("[Q] reset complete\n");
     return RT_EOK;
@@ -381,6 +483,7 @@ static int app_q_training_init(void)
 {
     rt_mutex_init(&s_training_lock, "q_lock", RT_IPC_FLAG_PRIO);
     q_agent_init(&s_q_agent, 0U);
+    memset(&s_ui_state, 0, sizeof(s_ui_state));
     return RT_EOK;
 }
 INIT_APP_EXPORT(app_q_training_init);

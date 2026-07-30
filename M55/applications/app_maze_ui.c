@@ -5,6 +5,7 @@
 #include "app_maze_ui.h"
 #include "app_mode_manager.h"
 #include "app_q_training.h"
+#include "app_random_baseline.h"
 #include "module_maze_env.h"
 
 #define MAZE_SIZE        MAZE_ENV_SIZE
@@ -20,6 +21,7 @@ static lv_obj_t *s_complete_panel;
 static lv_obj_t *s_complete_label;
 static maze_ui_state_t s_state;
 static q_training_ui_state_t s_q_state;
+static random_baseline_ui_state_t s_random_state;
 static app_mode_state_t s_mode_state;
 static rt_uint8_t s_demo_visited[MAZE_SIZE][MAZE_SIZE];
 static rt_uint8_t s_infer_visited[MAZE_SIZE][MAZE_SIZE];
@@ -135,37 +137,78 @@ static rt_uint16_t latest_completed_demo_steps(void)
     return 0U;
 }
 
-static void set_compare_text(const q_training_ui_state_t *state)
+static void set_compare_text(const q_training_ui_state_t *q_state,
+                             const random_baseline_ui_state_t *random_state)
 {
     rt_uint16_t human_steps = latest_completed_demo_steps();
+    char human_text[20];
+    char q_text[32];
 
-    lv_label_set_text_fmt(s_status_label, "COMPARE  DEMO N=%u",
-                          s_demo_count);
-    if (human_steps > 0U && state->inference_complete)
+    if (human_steps > 0U)
     {
-        int saved_steps = (int)human_steps - (int)state->inference_steps;
-
-        lv_label_set_text_fmt(s_stats_label,
-                              "HUMAN %u STEPS\nQ %u STEPS  SAVE %d",
-                              (unsigned int)human_steps,
-                              (unsigned int)state->inference_steps,
-                              saved_steps);
-    }
-    else if (human_steps > 0U)
-    {
-        lv_label_set_text_fmt(s_stats_label,
-                              "HUMAN %u STEPS\nQ --",
-                              (unsigned int)human_steps);
-    }
-    else if (state->inference_complete)
-    {
-        lv_label_set_text_fmt(s_stats_label,
-                              "HUMAN --\nQ %u STEPS",
-                              (unsigned int)state->inference_steps);
+        rt_snprintf(human_text, sizeof(human_text), "HUMAN %u",
+                    (unsigned int)human_steps);
     }
     else
     {
-        lv_label_set_text(s_stats_label, "HUMAN --\nQ --");
+        rt_snprintf(human_text, sizeof(human_text), "HUMAN --");
+    }
+    if (q_state->inference_complete)
+    {
+        if (human_steps > 0U)
+        {
+            int saved_steps = (int)human_steps -
+                              (int)q_state->inference_steps;
+
+            rt_snprintf(q_text, sizeof(q_text), "Q %u SAVE %d",
+                        (unsigned int)q_state->inference_steps,
+                        saved_steps);
+        }
+        else
+        {
+            rt_snprintf(q_text, sizeof(q_text), "Q %u",
+                        (unsigned int)q_state->inference_steps);
+        }
+    }
+    else
+    {
+        rt_snprintf(q_text, sizeof(q_text), "Q --");
+    }
+
+    lv_label_set_text_fmt(
+        s_status_label, "%s  MAP R%lu",
+        random_state->phase == RANDOM_BASELINE_UI_RUNNING ?
+        "RANDOM RUNNING" : "COMPARE",
+        (unsigned long)maze_env_map_revision());
+    if (random_state->phase == RANDOM_BASELINE_UI_RUNNING)
+    {
+        lv_label_set_text_fmt(s_stats_label,
+                              "RND EP %lu/%lu  OK %lu\n%s  %s",
+                              (unsigned long)random_state->current_episode,
+                              (unsigned long)random_state->target_episodes,
+                              (unsigned long)random_state->successful_episodes,
+                              human_text, q_text);
+    }
+    else if (random_state->target_episodes == 0U)
+    {
+        lv_label_set_text_fmt(s_stats_label, "RND --\n%s  %s",
+                              human_text, q_text);
+    }
+    else if (random_state->successful_episodes == 0U)
+    {
+        lv_label_set_text_fmt(s_stats_label,
+                              "RND 0/%lu  AVG --\n%s  %s",
+                              (unsigned long)random_state->target_episodes,
+                              human_text, q_text);
+    }
+    else
+    {
+        lv_label_set_text_fmt(s_stats_label,
+                              "RND %lu/%lu  AVG %u\n%s  %s",
+                              (unsigned long)random_state->successful_episodes,
+                              (unsigned long)random_state->target_episodes,
+                              (unsigned int)random_state->average_success_steps,
+                              human_text, q_text);
     }
 }
 
@@ -265,7 +308,7 @@ static void render_current_mode(rt_bool_t mode_changed,
     else
     {
         ball_ui_set_cell_locked(s_start_x, s_start_y);
-        set_compare_text(&s_q_state);
+        set_compare_text(&s_q_state, &s_random_state);
         hide_complete_panel();
     }
     lv_obj_invalidate(s_table);
@@ -275,21 +318,25 @@ static void ui_timer_cb(lv_timer_t *timer)
 {
     app_mode_state_t mode_state;
     q_training_ui_state_t q_state;
+    random_baseline_ui_state_t random_state;
     q_training_ui_phase_t old_q_phase;
     rt_bool_t mode_changed;
     rt_bool_t q_changed;
+    rt_bool_t random_changed;
 
     (void)timer;
 
     if (!s_ready || app_mode_get_state(&mode_state) != RT_EOK ||
-        q_training_get_ui_state(&q_state) != RT_EOK)
+        q_training_get_ui_state(&q_state) != RT_EOK ||
+        random_baseline_get_ui_state(&random_state) != RT_EOK)
     {
         return;
     }
 
     mode_changed = mode_state.revision != s_mode_state.revision;
     q_changed = q_state.revision != s_q_state.revision;
-    if (!mode_changed && !q_changed)
+    random_changed = random_state.revision != s_random_state.revision;
+    if (!mode_changed && !q_changed && !random_changed)
     {
         return;
     }
@@ -297,6 +344,7 @@ static void ui_timer_cb(lv_timer_t *timer)
     old_q_phase = s_q_state.phase;
     s_mode_state = mode_state;
     s_q_state = q_state;
+    s_random_state = random_state;
     render_current_mode(mode_changed, old_q_phase);
 }
 
@@ -510,7 +558,7 @@ void maze_ui_set_demo_count(rt_uint16_t count)
     }
     else
     {
-        set_compare_text(&s_q_state);
+        set_compare_text(&s_q_state, &s_random_state);
     }
     lv_unlock();
 }
@@ -520,6 +568,7 @@ rt_err_t maze_ui_reload_map(void)
     maze_env_t env;
     app_mode_state_t mode_state;
     q_training_ui_state_t q_state;
+    random_baseline_ui_state_t random_state;
     rt_uint32_t row;
     rt_uint32_t col;
 
@@ -529,7 +578,8 @@ rt_err_t maze_ui_reload_map(void)
     }
     if (maze_env_init(&env, 0U) != RT_EOK ||
         app_mode_get_state(&mode_state) != RT_EOK ||
-        q_training_get_ui_state(&q_state) != RT_EOK)
+        q_training_get_ui_state(&q_state) != RT_EOK ||
+        random_baseline_get_ui_state(&random_state) != RT_EOK)
     {
         return -RT_ERROR;
     }
@@ -565,6 +615,7 @@ rt_err_t maze_ui_reload_map(void)
     s_infer_visited[s_start_y][s_start_x] = 1U;
     s_mode_state = mode_state;
     s_q_state = q_state;
+    s_random_state = random_state;
     render_current_mode(RT_TRUE, Q_TRAINING_UI_NONE);
     lv_unlock();
     return RT_EOK;

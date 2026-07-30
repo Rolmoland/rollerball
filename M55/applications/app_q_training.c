@@ -4,6 +4,7 @@
 #include "app_demo_collector.h"
 #include "app_mode_manager.h"
 #include "app_q_training.h"
+#include "app_random_baseline.h"
 #include "module_maze_env.h"
 #include "module_q_agent.h"
 
@@ -50,6 +51,16 @@ rt_err_t q_training_get_ui_state(q_training_ui_state_t *state)
     *state = s_ui_state;
     rt_mutex_release(&s_training_lock);
     return RT_EOK;
+}
+
+rt_bool_t q_training_is_busy(void)
+{
+    rt_bool_t active;
+
+    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
+    active = s_training_active;
+    rt_mutex_release(&s_training_lock);
+    return active;
 }
 
 rt_err_t q_training_reset(void)
@@ -108,6 +119,11 @@ static rt_err_t command_count(int argc,
 static rt_bool_t training_try_start(void)
 {
     rt_bool_t started = RT_FALSE;
+
+    if (random_baseline_is_busy())
+    {
+        return RT_FALSE;
+    }
 
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     if (!s_training_active)
@@ -500,7 +516,7 @@ static int q_reset_cmd(int argc, char **argv)
         rt_kprintf("Usage: q_reset\n");
         return -RT_EINVAL;
     }
-    if (q_training_reset() != RT_EOK)
+    if (random_baseline_is_busy() || q_training_reset() != RT_EOK)
     {
         rt_kprintf("[Q] training busy\n");
         return -RT_EBUSY;

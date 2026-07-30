@@ -1,4 +1,4 @@
-!SESSION 2026-07-30 18:52:38.721 -----------------------------------------------
+!SESSION 2026-07-30 21:49:26.886 -----------------------------------------------
 eclipse.buildId=unknown
 java.version=1.8.0_144
 java.vendor=Oracle Corporation
@@ -6,9 +6,989 @@ BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -clean
 
 This is a continuation of log file F:\code\vibe_project\rollerball\.metadata\.bak_5.log
-Created Time: 2026-07-30 18:53:05.541
+Created Time: 2026-07-30 21:49:52.402
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.541
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.403
+!MESSAGE 调试核心所记录的错误：
+!STACK 1
+org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:886)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2448)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1366)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	... 45 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.403
+!MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.416
+!MESSAGE 调试核心所记录的错误：
+!STACK 1
+org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:886)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2448)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1366)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	... 45 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.416
+!MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.419
+!MESSAGE 调试核心所记录的错误：
+!STACK 1
+org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Attach RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:886)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2448)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1366)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	... 45 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.420
+!MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Attach RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.422
+!MESSAGE 调试核心所记录的错误：
+!STACK 1
+org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Program RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:886)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2448)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1366)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	... 45 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.422
+!MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM33\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Program RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.424
+!MESSAGE 调试核心所记录的错误：
+!STACK 1
+org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:886)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2448)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1366)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	... 45 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.424
+!MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.426
+!MESSAGE 调试核心所记录的错误：
+!STACK 1
+org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:886)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2448)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1366)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	... 45 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.427
+!MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.429
+!MESSAGE 调试核心所记录的错误：
+!STACK 1
+org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:886)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2448)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1366)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	... 45 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.429
+!MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanAttributeValue(XMLScanner.java:908)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanAttribute(XMLDocumentFragmentScannerImpl.java:1548)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1315)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2784)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:841)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:770)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:490)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:645)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2091)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2462)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1140)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1444)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1439)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:573)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:542)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1070)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1042)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:550)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:236)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:201)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:171)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:516)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:209)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:129)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshActionList(WWinPluginAction.java:165)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.lambda$0(AbstractUIPlugin.java:552)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3919)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3550)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1173)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1062)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:156)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:642)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:569)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:151)
+	at org.rtthread.studio.application.Application.start(Application.java:224)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
+
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.432
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\KitProg3\any\&&_PRJ_NAME&& Program (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -80,7 +1060,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.541
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.432
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\KitProg3\any\&&_PRJ_NAME&& Program (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -148,7 +1128,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.546
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.434
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -220,7 +1200,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.546
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.434
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\_normal\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -288,7 +1268,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.548
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.436
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\any\&&_PRJ_NAME&& Attach (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -360,7 +1340,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.550
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.437
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\any\&&_PRJ_NAME&& Attach (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -428,7 +1408,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.551
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.438
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\any\&&_PRJ_NAME&& Debug (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -500,7 +1480,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.551
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.438
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\any\&&_PRJ_NAME&& Debug (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -568,7 +1548,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.551
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.438
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\combine_sign\Attach.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -640,7 +1620,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.551
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.438
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\combine_sign\Attach.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -708,7 +1688,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.556
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.443
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\combine_sign\Debug.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -780,7 +1760,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.558
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.444
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\JLink\combine_sign\Debug.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -848,7 +1828,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.560
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.446
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -920,7 +1900,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.560
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.446
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -988,7 +1968,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.561
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.448
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\any\&&_PRJ_NAME&& Debug (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -1060,7 +2040,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.561
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.448
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\any\&&_PRJ_NAME&& Debug (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -1128,7 +2108,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.565
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.448
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\combine_sign\Add CM55 to CM33.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -1200,7 +2180,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.565
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.448
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\combine_sign\Add CM55 to CM33.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -1268,7 +2248,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.567
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.453
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\combine_sign\Attach.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -1340,7 +2320,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.567
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.453
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\combine_sign\Attach.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -1408,7 +2388,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.567
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.455
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\combine_sign\Debug.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -1480,7 +2460,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.567
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.455
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\combine_sign\Debug.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -1548,7 +2528,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.572
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.458
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -1620,7 +2600,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.572
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.458
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\normal\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -1688,7 +2668,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.576
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.459
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\any\&&_PRJ_NAME&& Attach (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -1760,7 +2740,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.576
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.459
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\any\&&_PRJ_NAME&& Attach (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -1828,7 +2808,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.577
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.463
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\any\&&_PRJ_NAME&& Debug (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -1900,7 +2880,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.578
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.463
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\any\&&_PRJ_NAME&& Debug (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -1968,7 +2948,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.578
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.465
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\any\&&_PRJ_NAME&& Program (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -2040,7 +3020,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.578
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.465
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\any\&&_PRJ_NAME&& Program (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -2108,7 +3088,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.583
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.465
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\combine_sign\Debug.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -2180,7 +3160,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.583
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.465
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\combine_sign\Debug.launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -2248,7 +3228,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.585
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.469
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\single\&&_PRJ_NAME&& Erase All (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -2320,7 +3300,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.585
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.469
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\single\&&_PRJ_NAME&& Erase All (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -2388,7 +3368,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.588
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.469
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\single\&&_PRJ_NAME&& Erase Device (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -2460,7 +3440,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.588
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.469
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\JLink\single\&&_PRJ_NAME&& Erase Device (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -2528,7 +3508,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.590
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.475
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -2600,7 +3580,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.590
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.475
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -2668,7 +3648,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.593
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.475
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\any\&&_PRJ_NAME&& Program (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -2740,7 +3720,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.593
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.475
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\any\&&_PRJ_NAME&& Program (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -2808,7 +3788,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.593
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.479
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -2880,7 +3860,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.593
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.479
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -2948,7 +3928,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.598
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.480
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\single\&&_PRJ_NAME&& Erase All (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -3020,7 +4000,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.598
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.480
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\single\&&_PRJ_NAME&& Erase All (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -3088,7 +4068,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.602
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.484
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\single\&&_PRJ_NAME&& Erase Device (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -3160,7 +4140,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.602
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.484
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\single\&&_PRJ_NAME&& Erase Device (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -3228,7 +4208,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.604
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.484
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\single\&&_PRJ_NAME&& Start App (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -3300,7 +4280,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.604
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.484
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\flash\virgin\KitProg3\single\&&_PRJ_NAME&& Start App (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -3368,7 +4348,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.608
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.489
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -3440,7 +4420,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.608
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.490
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -3508,7 +4488,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.611
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.492
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -3580,7 +4560,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.611
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.492
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -3648,7 +4628,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.613
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.494
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -3720,7 +4700,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.613
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.494
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\KitProg3\any\&&_PRJ_NAME&& Attach (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -3788,7 +4768,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.614
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.496
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\KitProg3\any\&&_PRJ_NAME&& Program (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -3860,7 +4840,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.614
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.496
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\KitProg3\any\&&_PRJ_NAME&& Program (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -3928,7 +4908,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.616
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.499
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -4000,7 +4980,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.616
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.499
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\_normal\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -4068,7 +5048,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.619
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.500
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -4140,7 +5120,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.619
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.500
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\JLink\any\&&_PRJ_NAME&& Attach RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -4208,7 +5188,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.621
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.504
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -4280,7 +5260,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.622
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.504
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\JLink\any\&&_PRJ_NAME&& Program RAM (JLink).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -4348,7 +5328,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.624
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.507
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Attach RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -4420,7 +5400,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.624
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.507
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Attach RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -4488,7 +5468,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.626
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.511
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Program RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -4560,7 +5540,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.626
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.511
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\KitProg3\any\&&_PRJ_NAME&& Program RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -4628,7 +5608,7 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.eclipse.debug.core 4 125 2026-07-30 18:53:05.628
+!ENTRY org.eclipse.debug.core 4 125 2026-07-30 21:49:52.513
 !MESSAGE 调试核心所记录的错误：
 !STACK 1
 org.eclipse.debug.core.DebugException: 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
@@ -4700,7 +5680,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在�
 	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:935)
 	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1359)
 	... 45 more
-!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 18:53:05.628
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2026-07-30 21:49:52.513
 !MESSAGE 读取启动配置文件 F:\code\vibe_project\rollerball\M55\libraries\components\mtb-device-support-pse8xxgp\make\make\scripts\interface_version_4\eclipse\CM55\ram\virgin\KitProg3\multi\&&_PRJ_NAME&& Add CM55 to CM33 RAM (KitProg3_MiniProg4).launch 时发生了 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。。
 !STACK 0
 org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用中, 实体名称必须紧跟在 '&' 后面。
@@ -4768,35 +5748,29 @@ org.xml.sax.SAXParseException; lineNumber: 3; columnNumber: 66; 在实体引用�
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:595)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1501)
 
-!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-30 18:53:05.729
+!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-30 21:49:52.629
 !MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
 
-!ENTRY org.rt-thread.studio.application 4 4 2026-07-30 18:53:10.617
-!MESSAGE start pkgs upgrade......
-
-!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-30 18:53:10.619
-!MESSAGE =====>destiDir D:/RtThread/RT-ThreadStudio/platform/env_released/env
-
-!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-30 18:53:10.619
-!MESSAGE ---toolchainpath--> D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/5.4.1/bin
-
-!ENTRY org.rt-thread.studio.application 4 4 2026-07-30 18:54:12.893
-!MESSAGE end pkgs upgrade......
-
-!ENTRY org.eclipse.ui 4 4 2026-07-30 18:54:44.861
+!ENTRY org.eclipse.ui 4 4 2026-07-30 21:49:54.389
 !MESSAGE Unable to associate action set with part: org.eclipse.cdt.ui.editor.CEditor. Action set org.eclipse.cdt.ui.SearchActionSet not found.
 
-!ENTRY org.eclipse.launchbar.core 2 0 2026-07-30 18:54:44.893
+!ENTRY org.eclipse.launchbar.core 2 0 2026-07-30 21:49:54.438
 !MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
 
-!ENTRY org.eclipse.launchbar.core 2 0 2026-07-30 18:54:44.894
+!ENTRY org.eclipse.launchbar.core 2 0 2026-07-30 21:49:54.440
 !MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
 
-!ENTRY org.eclipse.launchbar.core 2 0 2026-07-30 18:54:44.895
+!ENTRY org.eclipse.launchbar.core 2 0 2026-07-30 21:49:54.441
 !MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
 
-!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-30 19:53:05.926
-!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+!ENTRY org.rt-thread.studio.application 4 4 2026-07-30 21:49:57.412
+!MESSAGE start pkgs upgrade......
 
-!ENTRY org.rt-thread.studio.common.ui 1 0 2026-07-30 20:53:06.072
-!MESSAGE eyJoYXNSZXEiOmZhbHNlfQ==
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-30 21:49:57.414
+!MESSAGE =====>destiDir D:/RtThread/RT-ThreadStudio/platform/env_released/env
+
+!ENTRY org.rt-thread.studio.common.core 4 4 2026-07-30 21:49:57.414
+!MESSAGE ---toolchainpath--> D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/5.4.1/bin
+
+!ENTRY org.rt-thread.studio.application 4 4 2026-07-30 21:50:06.360
+!MESSAGE end pkgs upgrade......

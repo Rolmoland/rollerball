@@ -35,5 +35,6 @@ typedef struct
 
 rt_err_t q_training_get_ui_state(q_training_ui_state_t *state);
 rt_err_t q_training_reset(void);
+rt_bool_t q_training_is_busy(void);
 
 #endif /* __APP_Q_TRAINING_H__ */

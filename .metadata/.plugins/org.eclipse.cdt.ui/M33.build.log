@@ -1,5 +1,16 @@
-20:58:34 **** Incremental Build of configuration Debug for project M33 ****
+21:50:05 **** Incremental Build of configuration Debug for project M33 ****
 make -j12 all 
+linking...
+D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: rtthread.elf has a LOAD segment with RWX permissions
+make --no-print-directory post-build
+arm-none-eabi-objcopy -O ihex "rtthread.elf" "rtthread.hex";../tools/edgeprotecttools/bin/edgeprotecttools.exe run-config -i ../config/boot_with_extended_boot.json
+: E : INFO  : relocate_proj_cm33_ns: command "hex-relocate" validation succeeded
+: E : INFO  : Relocating segment 0x08340400-0x0835D7CC to 0x60340400-0x6035D7CC
+: E : INFO  : Saved file to '../Debug/rtthread.hex'
+: E : INFO  : relocate_proj_cm33_ns: command "hex-relocate" succeeded
+: E : INFO  : merge: command "merge" validation succeeded
+: E : INFO  : merge: command "merge" succeeded
+ 
 arm-none-eabi-size --format=berkeley "rtthread.elf"
    text	   data	    bss	    dec	    hex	filename
  118116	   1640	 260321	 380077	  5ccad	rtthread.elf
@@ -8,5 +19,5 @@ arm-none-eabi-size --format=berkeley "rtthread.elf"
 Flash:         119756 B              116.95 KB
 RAM:           261961 B              255.82 KB
 
-20:58:37 Build Finished. 0 errors, 0 warnings. (took 3s.618ms)
+21:50:15 Build Finished. 0 errors, 1 warnings. (took 9s.921ms)
 

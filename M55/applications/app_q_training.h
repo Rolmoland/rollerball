@@ -33,8 +33,17 @@ typedef struct
     rt_uint32_t revision;
 } q_training_ui_state_t;
 
+/**
+ * @brief 获取 Q-learning 训练或推理状态的线程安全快照。
+ * @param[out] state 接收界面状态，不得为 RT_NULL。
+ * @return RT_EOK 表示成功，参数无效时返回 -RT_EINVAL。
+ */
 rt_err_t q_training_get_ui_state(q_training_ui_state_t *state);
+
+/**
+ * @brief 清空 Q 表、训练统计和推理状态，并恢复训练就绪状态。
+ * @return RT_EOK 表示成功，算法任务正在运行时返回 -RT_EBUSY。
+ */
 rt_err_t q_training_reset(void);
-rt_bool_t q_training_is_busy(void);
 
 #endif /* __APP_Q_TRAINING_H__ */

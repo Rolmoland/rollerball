@@ -66,7 +66,7 @@ void q_agent_seed_action(q_agent_t *agent,
     }
 }
 
-float q_agent_max_value(const q_agent_t *agent, rt_uint16_t state)
+static float q_agent_max_value(const q_agent_t *agent, rt_uint16_t state)
 {
     rt_uint8_t action;
     float max_value;

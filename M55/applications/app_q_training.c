@@ -53,16 +53,6 @@ rt_err_t q_training_get_ui_state(q_training_ui_state_t *state)
     return RT_EOK;
 }
 
-rt_bool_t q_training_is_busy(void)
-{
-    rt_bool_t active;
-
-    rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
-    active = s_training_active;
-    rt_mutex_release(&s_training_lock);
-    return active;
-}
-
 rt_err_t q_training_reset(void)
 {
     rt_uint32_t revision;

@@ -5,7 +5,7 @@
 static struct rt_mutex s_mode_lock;
 static app_mode_state_t s_mode_state;
 
-const char *app_mode_name(app_mode_t mode)
+static const char *app_mode_name(app_mode_t mode)
 {
     switch (mode)
     {

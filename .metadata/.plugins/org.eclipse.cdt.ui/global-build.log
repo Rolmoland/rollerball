@@ -1,5 +1,8 @@
-02:10:39 **** Incremental Build of configuration Debug for project M55 ****
+02:43:00 **** Incremental Build of configuration Debug for project M55 ****
 make -j12 all 
+arm-none-eabi-gcc "../applications/app_algorithm_manager.c"
+arm-none-eabi-gcc "../applications/app_ball_ui.c"
+arm-none-eabi-gcc "../applications/app_demo_collector.c"
 arm-none-eabi-gcc "../applications/app_dqn_training.c"
 arm-none-eabi-gcc "../applications/app_ipc_rx.c"
 arm-none-eabi-gcc "../applications/app_map_loader.c"
@@ -7,6 +10,10 @@ arm-none-eabi-gcc "../applications/app_maze_ui.c"
 arm-none-eabi-gcc "../applications/app_mode_manager.c"
 arm-none-eabi-gcc "../applications/app_q_training.c"
 arm-none-eabi-gcc "../applications/app_random_baseline.c"
+arm-none-eabi-gcc "../applications/main.c"
+arm-none-eabi-gcc "../applications/module_dqn_agent.c"
+arm-none-eabi-gcc "../applications/module_maze_env.c"
+arm-none-eabi-gcc "../applications/module_q_agent.c"
 arm-none-eabi-g++ @link.temp
 D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: rtthread.elf has a LOAD segment with RWX permissions
 arm-none-eabi-objcopy -O ihex "rtthread.elf"  "rtthread.hex"

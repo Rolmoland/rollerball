@@ -425,15 +425,6 @@ rt_uint16_t maze_env_state_index(rt_uint8_t x, rt_uint8_t y)
     return (rt_uint16_t)(y * MAZE_ENV_SIZE + x);
 }
 
-void maze_env_get_normalized_state(const maze_env_t *env, float state[2])
-{
-    RT_ASSERT(env != RT_NULL);
-    RT_ASSERT(state != RT_NULL);
-
-    state[0] = env->agent_x / (float)(MAZE_ENV_SIZE - 1U);
-    state[1] = env->agent_y / (float)(MAZE_ENV_SIZE - 1U);
-}
-
 rt_bool_t maze_env_is_done(const maze_env_t *env)
 {
     RT_ASSERT(env != RT_NULL);

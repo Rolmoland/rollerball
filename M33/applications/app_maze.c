@@ -10,6 +10,8 @@ static struct rt_mutex g_reset_lock;
 static volatile rt_bool_t g_reset_requested = RT_FALSE;
 static rt_uint16_t g_reset_generation = 1U;
 
+static void maze_app_reset(void);
+
 static void maze_reset_button_irq(void *args)
 {
     (void)args;
@@ -36,7 +38,7 @@ static void maze_reset_thread_entry(void *parameter)
     }
 }
 
-void maze_app_reset(void)
+static void maze_app_reset(void)
 {
     rt_mutex_take(&g_reset_lock, RT_WAITING_FOREVER);
     g_reset_generation++;

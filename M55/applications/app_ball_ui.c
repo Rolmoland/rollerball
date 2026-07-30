@@ -29,10 +29,3 @@ void ball_ui_set_cell_locked(rt_uint8_t x, rt_uint8_t y)
                    content.x1 + x * s_cell_size + inset,
                    content.y1 + y * s_cell_size + inset);
 }
-
-void ball_ui_set_cell(rt_uint8_t x, rt_uint8_t y)
-{
-    lv_lock();
-    ball_ui_set_cell_locked(x, y);
-    lv_unlock();
-}

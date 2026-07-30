@@ -4,23 +4,6 @@
 static struct rt_mutex s_algorithm_lock;
 static app_algorithm_t s_active_algorithm;
 
-const char *app_algorithm_name(app_algorithm_t algorithm)
-{
-    switch (algorithm)
-    {
-    case APP_ALGORITHM_NONE:
-        return "NONE";
-    case APP_ALGORITHM_RANDOM:
-        return "RANDOM";
-    case APP_ALGORITHM_Q:
-        return "Q";
-    case APP_ALGORITHM_DQN:
-        return "DQN";
-    default:
-        return "UNKNOWN";
-    }
-}
-
 rt_err_t app_algorithm_acquire(app_algorithm_t algorithm)
 {
     rt_err_t result = RT_EOK;
@@ -67,17 +50,12 @@ rt_err_t app_algorithm_release(app_algorithm_t algorithm)
 
 rt_bool_t app_algorithm_is_busy(void)
 {
-    return app_algorithm_active() != APP_ALGORITHM_NONE;
-}
-
-app_algorithm_t app_algorithm_active(void)
-{
     app_algorithm_t algorithm;
 
     rt_mutex_take(&s_algorithm_lock, RT_WAITING_FOREVER);
     algorithm = s_active_algorithm;
     rt_mutex_release(&s_algorithm_lock);
-    return algorithm;
+    return algorithm != APP_ALGORITHM_NONE;
 }
 
 static int app_algorithm_manager_init(void)

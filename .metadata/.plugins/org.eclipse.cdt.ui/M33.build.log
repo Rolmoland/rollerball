@@ -1,13 +1,16 @@
-02:09:24 **** Incremental Build of configuration Debug for project M33 ****
+02:41:40 **** Incremental Build of configuration Debug for project M33 ****
 make -j12 all 
+arm-none-eabi-gcc "../applications/app_gesture.c"
 arm-none-eabi-gcc "../applications/app_ipc_tx.c"
 arm-none-eabi-gcc "../applications/app_maze.c"
+arm-none-eabi-gcc "../applications/main.c"
+arm-none-eabi-gcc "../applications/module_imu.c"
 linking...
 D:/RtThread/RT-ThreadStudio/repo/Extract/ToolChain_Support_Packages/ARM/GNU_Tools_for_ARM_Embedded_Processors/13.3/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: rtthread.elf has a LOAD segment with RWX permissions
 make --no-print-directory post-build
 arm-none-eabi-objcopy -O ihex "rtthread.elf" "rtthread.hex";../tools/edgeprotecttools/bin/edgeprotecttools.exe run-config -i ../config/boot_with_extended_boot.json
 : E : INFO  : relocate_proj_cm33_ns: command "hex-relocate" validation succeeded
-: E : INFO  : Relocating segment 0x08340400-0x0835CEFC to 0x60340400-0x6035CEFC
+: E : INFO  : Relocating segment 0x08340400-0x0835CA44 to 0x60340400-0x6035CA44
 : E : INFO  : Saved file to '../Debug/rtthread.hex'
 : E : INFO  : relocate_proj_cm33_ns: command "hex-relocate" succeeded
 : E : INFO  : merge: command "merge" validation succeeded
@@ -15,11 +18,11 @@ arm-none-eabi-objcopy -O ihex "rtthread.elf" "rtthread.hex";../tools/edgeprotect
  
 arm-none-eabi-size --format=berkeley "rtthread.elf"
    text	   data	    bss	    dec	    hex	filename
- 115860	   1640	 260317	 377817	  5c3d9	rtthread.elf
+ 114652	   1640	 260317	 376609	  5bf21	rtthread.elf
 
               Used Size(B)           Used Size(KB)
-Flash:         117500 B              114.75 KB
+Flash:         116292 B              113.57 KB
 RAM:           261957 B              255.82 KB
 
-02:09:34 Build Finished. 0 errors, 1 warnings. (took 10s.597ms)
+02:41:50 Build Finished. 0 errors, 1 warnings. (took 9s.932ms)
 

@@ -35,8 +35,17 @@ typedef struct
     rt_uint32_t revision;
 } dqn_training_ui_state_t;
 
+/**
+ * @brief 获取 DQN 训练或推理状态的线程安全快照。
+ * @param[out] state 接收界面状态，不得为 RT_NULL。
+ * @return RT_EOK 表示成功，参数无效时返回 -RT_EINVAL。
+ */
 rt_err_t dqn_training_get_ui_state(dqn_training_ui_state_t *state);
+
+/**
+ * @brief 清空 DQN 网络、经验回放和训练统计，并恢复训练就绪状态。
+ * @return RT_EOK 表示成功，算法任务正在运行时返回 -RT_EBUSY。
+ */
 rt_err_t dqn_training_reset(void);
-rt_bool_t dqn_training_is_busy(void);
 
 #endif /* APP_DQN_TRAINING_H */

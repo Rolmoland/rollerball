@@ -38,7 +38,7 @@ rt_err_t random_baseline_get_ui_state(random_baseline_ui_state_t *state)
     return RT_EOK;
 }
 
-rt_bool_t random_baseline_is_busy(void)
+static rt_bool_t random_baseline_is_busy(void)
 {
     rt_bool_t active;
 

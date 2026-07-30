@@ -188,6 +188,86 @@ rt_err_t maze_env_copy_map(
     return RT_EOK;
 }
 
+rt_err_t maze_env_build_goal_distances(
+    rt_uint8_t map_id,
+    rt_uint8_t distances[MAZE_ENV_STATE_COUNT])
+{
+    static const rt_int8_t direction_x[MAZE_ENV_ACTION_COUNT] =
+    {
+        0, 0, -1, 1
+    };
+    static const rt_int8_t direction_y[MAZE_ENV_ACTION_COUNT] =
+    {
+        -1, 1, 0, 0
+    };
+    const rt_uint8_t (*map)[MAZE_ENV_SIZE] = maze_env_map(map_id);
+    rt_uint8_t queue[MAZE_ENV_STATE_COUNT];
+    rt_uint16_t head = 0U;
+    rt_uint16_t tail = 0U;
+    rt_uint8_t x;
+    rt_uint8_t y;
+
+    if (map == RT_NULL || distances == RT_NULL)
+    {
+        return -RT_EINVAL;
+    }
+
+    memset(distances, MAZE_ENV_DISTANCE_UNREACHABLE,
+           MAZE_ENV_STATE_COUNT);
+    for (y = 0U; y < MAZE_ENV_SIZE; y++)
+    {
+        for (x = 0U; x < MAZE_ENV_SIZE; x++)
+        {
+            if (map[y][x] == MAZE_ENV_CELL_GOAL)
+            {
+                rt_uint8_t goal_state =
+                    (rt_uint8_t)maze_env_state_index(x, y);
+
+                distances[goal_state] = 0U;
+                queue[tail++] = goal_state;
+            }
+        }
+    }
+    if (tail != 1U)
+    {
+        return -RT_ERROR;
+    }
+
+    while (head < tail)
+    {
+        rt_uint8_t state = queue[head++];
+        rt_uint8_t current_x = state % MAZE_ENV_SIZE;
+        rt_uint8_t current_y = state / MAZE_ENV_SIZE;
+        rt_uint8_t direction;
+
+        for (direction = 0U; direction < MAZE_ENV_ACTION_COUNT; direction++)
+        {
+            int next_x = (int)current_x + direction_x[direction];
+            int next_y = (int)current_y + direction_y[direction];
+            rt_uint8_t next_state;
+
+            if (next_x < 0 || next_x >= (int)MAZE_ENV_SIZE ||
+                next_y < 0 || next_y >= (int)MAZE_ENV_SIZE ||
+                map[next_y][next_x] == MAZE_ENV_CELL_WALL)
+            {
+                continue;
+            }
+
+            next_state = (rt_uint8_t)maze_env_state_index(
+                (rt_uint8_t)next_x, (rt_uint8_t)next_y);
+            if (distances[next_state] != MAZE_ENV_DISTANCE_UNREACHABLE)
+            {
+                continue;
+            }
+
+            distances[next_state] = distances[state] + 1U;
+            queue[tail++] = next_state;
+        }
+    }
+
+    return RT_EOK;
+}
+
 rt_uint32_t maze_env_map_revision(void)
 {
     return s_map_revision;

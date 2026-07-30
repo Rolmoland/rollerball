@@ -8,6 +8,7 @@
 #define MAZE_ENV_STATE_COUNT          (MAZE_ENV_SIZE * MAZE_ENV_SIZE)
 #define MAZE_ENV_ACTION_COUNT         4U
 #define MAZE_ENV_INVALID_STATE        0xFFFFU
+#define MAZE_ENV_DISTANCE_UNREACHABLE 0xFFU
 
 typedef enum
 {
@@ -75,6 +76,9 @@ maze_env_map_validation_t maze_env_set_map(
     rt_uint16_t *shortest_path);
 rt_err_t maze_env_copy_map(
     rt_uint8_t map[MAZE_ENV_SIZE][MAZE_ENV_SIZE]);
+rt_err_t maze_env_build_goal_distances(
+    rt_uint8_t map_id,
+    rt_uint8_t distances[MAZE_ENV_STATE_COUNT]);
 rt_uint32_t maze_env_map_revision(void);
 rt_uint16_t maze_env_state_index(rt_uint8_t x, rt_uint8_t y);
 void maze_env_get_normalized_state(const maze_env_t *env, float state[2]);

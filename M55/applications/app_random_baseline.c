@@ -1,8 +1,8 @@
 #include <rtthread.h>
 #include <stdlib.h>
 #include <string.h>
+#include "app_algorithm_manager.h"
 #include "app_mode_manager.h"
-#include "app_q_training.h"
 #include "app_random_baseline.h"
 #include "module_maze_env.h"
 
@@ -52,10 +52,16 @@ rt_err_t random_baseline_reset(void)
 {
     rt_uint32_t revision;
 
+    if (app_algorithm_acquire(APP_ALGORITHM_RANDOM) != RT_EOK)
+    {
+        return -RT_EBUSY;
+    }
+
     rt_mutex_take(&s_random_lock, RT_WAITING_FOREVER);
     if (s_random_active)
     {
         rt_mutex_release(&s_random_lock);
+        app_algorithm_release(APP_ALGORITHM_RANDOM);
         return -RT_EBUSY;
     }
 
@@ -66,6 +72,7 @@ rt_err_t random_baseline_reset(void)
     s_random_state = RANDOM_DEFAULT_SEED ^ maze_env_map_revision();
     ui_state_publish_locked();
     rt_mutex_release(&s_random_lock);
+    app_algorithm_release(APP_ALGORITHM_RANDOM);
     return RT_EOK;
 }
 
@@ -73,7 +80,7 @@ static rt_bool_t baseline_try_start(void)
 {
     rt_bool_t started = RT_FALSE;
 
-    if (q_training_is_busy())
+    if (app_algorithm_acquire(APP_ALGORITHM_RANDOM) != RT_EOK)
     {
         return RT_FALSE;
     }
@@ -85,6 +92,10 @@ static rt_bool_t baseline_try_start(void)
         started = RT_TRUE;
     }
     rt_mutex_release(&s_random_lock);
+    if (!started)
+    {
+        app_algorithm_release(APP_ALGORITHM_RANDOM);
+    }
     return started;
 }
 
@@ -93,6 +104,7 @@ static void baseline_finish(void)
     rt_mutex_take(&s_random_lock, RT_WAITING_FOREVER);
     s_random_active = RT_FALSE;
     rt_mutex_release(&s_random_lock);
+    app_algorithm_release(APP_ALGORITHM_RANDOM);
 }
 
 static maze_env_action_t random_action(void)
@@ -296,7 +308,7 @@ static int random_reset_cmd(int argc, char **argv)
         rt_kprintf("Usage: random_reset\n");
         return -RT_EINVAL;
     }
-    if (q_training_is_busy() || random_baseline_reset() != RT_EOK)
+    if (random_baseline_reset() != RT_EOK)
     {
         rt_kprintf("[RANDOM] algorithm task is busy\n");
         return -RT_EBUSY;

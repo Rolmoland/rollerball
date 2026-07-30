@@ -1,7 +1,9 @@
 #include <rtthread.h>
 #include <stdlib.h>
 #include <string.h>
+#include "app_algorithm_manager.h"
 #include "app_demo_collector.h"
+#include "app_dqn_training.h"
 #include "app_maze_ui.h"
 #include "app_q_training.h"
 #include "app_random_baseline.h"
@@ -78,15 +80,10 @@ static int commit_staged_map(void)
         rt_kprintf("[MAP] rejected: %s\n", validation_error(validation));
         return -RT_EINVAL;
     }
-    if (q_training_is_busy() || random_baseline_is_busy())
+    if (app_algorithm_is_busy())
     {
         rt_kprintf("[MAP] rejected: algorithm task is busy\n");
         return -RT_EBUSY;
-    }
-    if (q_training_reset() != RT_EOK)
-    {
-        rt_kprintf("[MAP] rejected: Q state reset failed\n");
-        return -RT_ERROR;
     }
 
     validation = maze_env_set_map(s_staged_map, &shortest_path);
@@ -95,9 +92,19 @@ static int commit_staged_map(void)
         rt_kprintf("[MAP] rejected: %s\n", validation_error(validation));
         return -RT_ERROR;
     }
+    if (q_training_reset() != RT_EOK)
+    {
+        rt_kprintf("[MAP] accepted but Q state reset failed\n");
+        return -RT_ERROR;
+    }
     if (random_baseline_reset() != RT_EOK)
     {
         rt_kprintf("[MAP] accepted but random baseline reset failed\n");
+        return -RT_ERROR;
+    }
+    if (dqn_training_reset() != RT_EOK)
+    {
+        rt_kprintf("[MAP] accepted but DQN state reset failed\n");
         return -RT_ERROR;
     }
 
@@ -115,7 +122,7 @@ static int commit_staged_map(void)
     rt_kprintf("[MAP] accepted revision=%lu shortest_path=%u\n",
                (unsigned long)maze_env_map_revision(),
                (unsigned int)shortest_path);
-    rt_kprintf("[MAP] Q table, random baseline, and demo data cleared\n");
+    rt_kprintf("[MAP] Q table, DQN, random baseline, and demo data cleared\n");
     return RT_EOK;
 }
 

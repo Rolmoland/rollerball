@@ -2,6 +2,7 @@
 #include <string.h>
 #include "app_ball_ui.h"
 #include "app_demo_collector.h"
+#include "app_dqn_training.h"
 #include "app_maze_ui.h"
 #include "app_mode_manager.h"
 #include "app_q_training.h"
@@ -21,10 +22,12 @@ static lv_obj_t *s_complete_panel;
 static lv_obj_t *s_complete_label;
 static maze_ui_state_t s_state;
 static q_training_ui_state_t s_q_state;
+static dqn_training_ui_state_t s_dqn_state;
 static random_baseline_ui_state_t s_random_state;
 static app_mode_state_t s_mode_state;
 static rt_uint8_t s_demo_visited[MAZE_SIZE][MAZE_SIZE];
 static rt_uint8_t s_infer_visited[MAZE_SIZE][MAZE_SIZE];
+static rt_uint8_t s_dqn_infer_visited[MAZE_SIZE][MAZE_SIZE];
 static rt_uint16_t s_demo_count;
 static rt_uint8_t s_start_x;
 static rt_uint8_t s_start_y;
@@ -119,6 +122,84 @@ static void set_inference_text(const q_training_ui_state_t *state)
                           (unsigned int)state->inference_steps);
 }
 
+static const char *dqn_training_status_text(
+    const dqn_training_ui_state_t *state)
+{
+    if (state->phase == DQN_TRAINING_UI_TRAINING)
+    {
+        return "DQN TRAIN RUNNING";
+    }
+    if (state->current_episode > 0U)
+    {
+        return "DQN TRAIN COMPLETE";
+    }
+    return "DQN TRAIN READY";
+}
+
+static void set_dqn_training_text(const dqn_training_ui_state_t *state)
+{
+    rt_int32_t reward_abs = state->training_reward_tenths < 0 ?
+                            -state->training_reward_tenths :
+                            state->training_reward_tenths;
+
+    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu",
+                          dqn_training_status_text(state),
+                          (unsigned long)maze_env_map_revision());
+    lv_label_set_text_fmt(s_stats_label,
+                          "EP %lu/%lu  OK %lu  EPS %lu.%03lu\n"
+                          "REWARD %s%ld.%ld  STEPS %u\n"
+                          "LOSS %lu.%03lu  BUF %u  UPD %lu",
+                          (unsigned long)state->current_episode,
+                          (unsigned long)state->target_episodes,
+                          (unsigned long)state->successful_episodes,
+                          (unsigned long)(state->epsilon_milli / 1000U),
+                          (unsigned long)(state->epsilon_milli % 1000U),
+                          state->training_reward_tenths < 0 ? "-" : "",
+                          (long)(reward_abs / 10),
+                          (long)(reward_abs % 10),
+                          (unsigned int)state->training_steps,
+                          (unsigned long)(state->loss_milli / 1000U),
+                          (unsigned long)(state->loss_milli % 1000U),
+                          (unsigned int)state->replay_count,
+                          (unsigned long)state->train_updates);
+}
+
+static void set_dqn_inference_text(const dqn_training_ui_state_t *state)
+{
+    const char *status;
+    rt_int32_t reward_abs = state->inference_reward_tenths < 0 ?
+                            -state->inference_reward_tenths :
+                            state->inference_reward_tenths;
+
+    if (state->phase == DQN_TRAINING_UI_INFERENCE)
+    {
+        status = "DQN INFER RUNNING";
+    }
+    else if (state->inference_complete)
+    {
+        status = state->inference_success ?
+                 "DQN INFER COMPLETE" : "DQN INFER FAILED";
+    }
+    else
+    {
+        status = "DQN INFER READY";
+    }
+
+    lv_label_set_text_fmt(s_status_label, "%s  MAP R%lu",
+                          status,
+                          (unsigned long)maze_env_map_revision());
+    lv_label_set_text_fmt(s_stats_label,
+                          "EPS %lu.%03lu  UPD %lu\n"
+                          "REWARD %s%ld.%ld  STEPS %u",
+                          (unsigned long)(state->epsilon_milli / 1000U),
+                          (unsigned long)(state->epsilon_milli % 1000U),
+                          (unsigned long)state->train_updates,
+                          state->inference_reward_tenths < 0 ? "-" : "",
+                          (long)(reward_abs / 10),
+                          (long)(reward_abs % 10),
+                          (unsigned int)state->inference_steps);
+}
+
 static rt_uint16_t latest_completed_demo_steps(void)
 {
     rt_uint16_t count = demo_collector_count();
@@ -138,11 +219,13 @@ static rt_uint16_t latest_completed_demo_steps(void)
 }
 
 static void set_compare_text(const q_training_ui_state_t *q_state,
+                             const dqn_training_ui_state_t *dqn_state,
                              const random_baseline_ui_state_t *random_state)
 {
     rt_uint16_t human_steps = latest_completed_demo_steps();
     char human_text[20];
     char q_text[32];
+    char dqn_text[20];
 
     if (human_steps > 0U)
     {
@@ -155,7 +238,11 @@ static void set_compare_text(const q_training_ui_state_t *q_state,
     }
     if (q_state->inference_complete)
     {
-        if (human_steps > 0U)
+        if (!q_state->inference_success)
+        {
+            rt_snprintf(q_text, sizeof(q_text), "Q FAIL");
+        }
+        else if (human_steps > 0U)
         {
             int saved_steps = (int)human_steps -
                               (int)q_state->inference_steps;
@@ -174,6 +261,22 @@ static void set_compare_text(const q_training_ui_state_t *q_state,
     {
         rt_snprintf(q_text, sizeof(q_text), "Q --");
     }
+    if (dqn_state->inference_complete)
+    {
+        if (dqn_state->inference_success)
+        {
+            rt_snprintf(dqn_text, sizeof(dqn_text), "DQN %u",
+                        (unsigned int)dqn_state->inference_steps);
+        }
+        else
+        {
+            rt_snprintf(dqn_text, sizeof(dqn_text), "DQN FAIL");
+        }
+    }
+    else
+    {
+        rt_snprintf(dqn_text, sizeof(dqn_text), "DQN --");
+    }
 
     lv_label_set_text_fmt(
         s_status_label, "%s  MAP R%lu",
@@ -183,32 +286,32 @@ static void set_compare_text(const q_training_ui_state_t *q_state,
     if (random_state->phase == RANDOM_BASELINE_UI_RUNNING)
     {
         lv_label_set_text_fmt(s_stats_label,
-                              "RND EP %lu/%lu  OK %lu\n%s  %s",
+                              "RND EP %lu/%lu  OK %lu\n%s  %s  %s",
                               (unsigned long)random_state->current_episode,
                               (unsigned long)random_state->target_episodes,
                               (unsigned long)random_state->successful_episodes,
-                              human_text, q_text);
+                              human_text, q_text, dqn_text);
     }
     else if (random_state->target_episodes == 0U)
     {
-        lv_label_set_text_fmt(s_stats_label, "RND --\n%s  %s",
-                              human_text, q_text);
+        lv_label_set_text_fmt(s_stats_label, "RND --\n%s  %s  %s",
+                              human_text, q_text, dqn_text);
     }
     else if (random_state->successful_episodes == 0U)
     {
         lv_label_set_text_fmt(s_stats_label,
-                              "RND 0/%lu  AVG --\n%s  %s",
+                              "RND 0/%lu  AVG --\n%s  %s  %s",
                               (unsigned long)random_state->target_episodes,
-                              human_text, q_text);
+                              human_text, q_text, dqn_text);
     }
     else
     {
         lv_label_set_text_fmt(s_stats_label,
-                              "RND %lu/%lu  AVG %u\n%s  %s",
+                              "RND %lu/%lu  AVG %u\n%s  %s  %s",
                               (unsigned long)random_state->successful_episodes,
                               (unsigned long)random_state->target_episodes,
                               (unsigned int)random_state->average_success_steps,
-                              human_text, q_text);
+                              human_text, q_text, dqn_text);
     }
 }
 
@@ -245,6 +348,24 @@ static void show_inference_complete(const q_training_ui_state_t *state)
     lv_obj_move_foreground(s_complete_panel);
 }
 
+static void show_dqn_inference_complete(
+    const dqn_training_ui_state_t *state)
+{
+    lv_label_set_text_fmt(s_complete_label,
+                          state->inference_success ?
+                          "DQN INFERENCE COMPLETE\n%u STEPS" :
+                          "DQN INFERENCE FAILED\n%u STEPS",
+                          (unsigned int)state->inference_steps);
+    lv_obj_center(s_complete_label);
+    lv_obj_set_style_bg_color(s_complete_panel,
+                              state->inference_success ?
+                              lv_color_hex(0x2E7D32) :
+                              lv_color_hex(0xC62828),
+                              0);
+    lv_obj_remove_flag(s_complete_panel, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_move_foreground(s_complete_panel);
+}
+
 static void render_physical_state(void)
 {
     if (s_state.agent_x < MAZE_SIZE && s_state.agent_y < MAZE_SIZE)
@@ -264,7 +385,8 @@ static void render_physical_state(void)
 }
 
 static void render_current_mode(rt_bool_t mode_changed,
-                                q_training_ui_phase_t old_q_phase)
+                                q_training_ui_phase_t old_q_phase,
+                                dqn_training_ui_phase_t old_dqn_phase)
 {
     if (s_mode_state.mode == APP_MODE_DEMO)
     {
@@ -305,10 +427,46 @@ static void render_current_mode(rt_bool_t mode_changed,
             hide_complete_panel();
         }
     }
+    else if (s_mode_state.mode == APP_MODE_DQN_TRAIN)
+    {
+        ball_ui_set_cell_locked(s_start_x, s_start_y);
+        set_dqn_training_text(&s_dqn_state);
+        hide_complete_panel();
+    }
+    else if (s_mode_state.mode == APP_MODE_DQN_INFER)
+    {
+        if (s_dqn_state.phase == DQN_TRAINING_UI_INFERENCE &&
+            old_dqn_phase != DQN_TRAINING_UI_INFERENCE)
+        {
+            memset(s_dqn_infer_visited, 0, sizeof(s_dqn_infer_visited));
+            s_dqn_infer_visited[s_start_y][s_start_x] = 1U;
+        }
+        if (s_dqn_state.agent_x < MAZE_SIZE &&
+            s_dqn_state.agent_y < MAZE_SIZE)
+        {
+            s_dqn_infer_visited[s_dqn_state.agent_y]
+                               [s_dqn_state.agent_x] = 1U;
+            ball_ui_set_cell_locked(s_dqn_state.agent_x,
+                                    s_dqn_state.agent_y);
+        }
+        else if (mode_changed)
+        {
+            ball_ui_set_cell_locked(s_start_x, s_start_y);
+        }
+        set_dqn_inference_text(&s_dqn_state);
+        if (s_dqn_state.inference_complete)
+        {
+            show_dqn_inference_complete(&s_dqn_state);
+        }
+        else
+        {
+            hide_complete_panel();
+        }
+    }
     else
     {
         ball_ui_set_cell_locked(s_start_x, s_start_y);
-        set_compare_text(&s_q_state, &s_random_state);
+        set_compare_text(&s_q_state, &s_dqn_state, &s_random_state);
         hide_complete_panel();
     }
     lv_obj_invalidate(s_table);
@@ -318,16 +476,20 @@ static void ui_timer_cb(lv_timer_t *timer)
 {
     app_mode_state_t mode_state;
     q_training_ui_state_t q_state;
+    dqn_training_ui_state_t dqn_state;
     random_baseline_ui_state_t random_state;
     q_training_ui_phase_t old_q_phase;
+    dqn_training_ui_phase_t old_dqn_phase;
     rt_bool_t mode_changed;
     rt_bool_t q_changed;
+    rt_bool_t dqn_changed;
     rt_bool_t random_changed;
 
     (void)timer;
 
     if (!s_ready || app_mode_get_state(&mode_state) != RT_EOK ||
         q_training_get_ui_state(&q_state) != RT_EOK ||
+        dqn_training_get_ui_state(&dqn_state) != RT_EOK ||
         random_baseline_get_ui_state(&random_state) != RT_EOK)
     {
         return;
@@ -335,17 +497,20 @@ static void ui_timer_cb(lv_timer_t *timer)
 
     mode_changed = mode_state.revision != s_mode_state.revision;
     q_changed = q_state.revision != s_q_state.revision;
+    dqn_changed = dqn_state.revision != s_dqn_state.revision;
     random_changed = random_state.revision != s_random_state.revision;
-    if (!mode_changed && !q_changed && !random_changed)
+    if (!mode_changed && !q_changed && !dqn_changed && !random_changed)
     {
         return;
     }
 
     old_q_phase = s_q_state.phase;
+    old_dqn_phase = s_dqn_state.phase;
     s_mode_state = mode_state;
     s_q_state = q_state;
+    s_dqn_state = dqn_state;
     s_random_state = random_state;
-    render_current_mode(mode_changed, old_q_phase);
+    render_current_mode(mode_changed, old_q_phase, old_dqn_phase);
 }
 
 static void maze_draw_event(lv_event_t *event)
@@ -389,7 +554,9 @@ static void maze_draw_event(lv_event_t *event)
     else if ((s_mode_state.mode == APP_MODE_DEMO &&
               s_demo_visited[row][col]) ||
              (s_mode_state.mode == APP_MODE_INFER &&
-              s_infer_visited[row][col]))
+              s_infer_visited[row][col]) ||
+             (s_mode_state.mode == APP_MODE_DQN_INFER &&
+              s_dqn_infer_visited[row][col]))
     {
         bg = lv_color_hex(0xBBDEFB);
     }
@@ -485,8 +652,10 @@ void maze_ui_init(void)
     memset(&s_state, 0, sizeof(s_state));
     memset(s_demo_visited, 0, sizeof(s_demo_visited));
     memset(s_infer_visited, 0, sizeof(s_infer_visited));
+    memset(s_dqn_infer_visited, 0, sizeof(s_dqn_infer_visited));
     s_demo_visited[s_start_y][s_start_x] = 1U;
     s_infer_visited[s_start_y][s_start_x] = 1U;
+    s_dqn_infer_visited[s_start_y][s_start_x] = 1U;
     ball_ui_init(s_table, MAZE_CELL_PX);
     ball_ui_set_cell_locked(s_start_x, s_start_y);
 
@@ -556,9 +725,17 @@ void maze_ui_set_demo_count(rt_uint16_t count)
     {
         set_inference_text(&s_q_state);
     }
+    else if (s_mode_state.mode == APP_MODE_DQN_TRAIN)
+    {
+        set_dqn_training_text(&s_dqn_state);
+    }
+    else if (s_mode_state.mode == APP_MODE_DQN_INFER)
+    {
+        set_dqn_inference_text(&s_dqn_state);
+    }
     else
     {
-        set_compare_text(&s_q_state, &s_random_state);
+        set_compare_text(&s_q_state, &s_dqn_state, &s_random_state);
     }
     lv_unlock();
 }
@@ -568,6 +745,7 @@ rt_err_t maze_ui_reload_map(void)
     maze_env_t env;
     app_mode_state_t mode_state;
     q_training_ui_state_t q_state;
+    dqn_training_ui_state_t dqn_state;
     random_baseline_ui_state_t random_state;
     rt_uint32_t row;
     rt_uint32_t col;
@@ -579,6 +757,7 @@ rt_err_t maze_ui_reload_map(void)
     if (maze_env_init(&env, 0U) != RT_EOK ||
         app_mode_get_state(&mode_state) != RT_EOK ||
         q_training_get_ui_state(&q_state) != RT_EOK ||
+        dqn_training_get_ui_state(&dqn_state) != RT_EOK ||
         random_baseline_get_ui_state(&random_state) != RT_EOK)
     {
         return -RT_ERROR;
@@ -611,12 +790,16 @@ rt_err_t maze_ui_reload_map(void)
     s_state.agent_y = s_start_y;
     memset(s_demo_visited, 0, sizeof(s_demo_visited));
     memset(s_infer_visited, 0, sizeof(s_infer_visited));
+    memset(s_dqn_infer_visited, 0, sizeof(s_dqn_infer_visited));
     s_demo_visited[s_start_y][s_start_x] = 1U;
     s_infer_visited[s_start_y][s_start_x] = 1U;
+    s_dqn_infer_visited[s_start_y][s_start_x] = 1U;
     s_mode_state = mode_state;
     s_q_state = q_state;
+    s_dqn_state = dqn_state;
     s_random_state = random_state;
-    render_current_mode(RT_TRUE, Q_TRAINING_UI_NONE);
+    render_current_mode(RT_TRUE, Q_TRAINING_UI_NONE,
+                        DQN_TRAINING_UI_NONE);
     lv_unlock();
     return RT_EOK;
 }

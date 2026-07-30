@@ -1,10 +1,10 @@
 #include <rtthread.h>
 #include <stdlib.h>
 #include <string.h>
+#include "app_algorithm_manager.h"
 #include "app_demo_collector.h"
 #include "app_mode_manager.h"
 #include "app_q_training.h"
-#include "app_random_baseline.h"
 #include "module_maze_env.h"
 #include "module_q_agent.h"
 
@@ -67,10 +67,16 @@ rt_err_t q_training_reset(void)
 {
     rt_uint32_t revision;
 
+    if (app_algorithm_acquire(APP_ALGORITHM_Q) != RT_EOK)
+    {
+        return -RT_EBUSY;
+    }
+
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     if (s_training_active)
     {
         rt_mutex_release(&s_training_lock);
+        app_algorithm_release(APP_ALGORITHM_Q);
         return -RT_EBUSY;
     }
 
@@ -84,6 +90,7 @@ rt_err_t q_training_reset(void)
         (rt_uint32_t)(s_q_agent.epsilon * 1000.0f);
     ui_state_publish_locked();
     rt_mutex_release(&s_training_lock);
+    app_algorithm_release(APP_ALGORITHM_Q);
     app_mode_set(APP_MODE_TRAIN);
     return RT_EOK;
 }
@@ -120,7 +127,7 @@ static rt_bool_t training_try_start(void)
 {
     rt_bool_t started = RT_FALSE;
 
-    if (random_baseline_is_busy())
+    if (app_algorithm_acquire(APP_ALGORITHM_Q) != RT_EOK)
     {
         return RT_FALSE;
     }
@@ -132,6 +139,10 @@ static rt_bool_t training_try_start(void)
         started = RT_TRUE;
     }
     rt_mutex_release(&s_training_lock);
+    if (!started)
+    {
+        app_algorithm_release(APP_ALGORITHM_Q);
+    }
     return started;
 }
 
@@ -140,6 +151,7 @@ static void training_finish(void)
     rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
     s_training_active = RT_FALSE;
     rt_mutex_release(&s_training_lock);
+    app_algorithm_release(APP_ALGORITHM_Q);
 }
 
 static rt_bool_t demo_transition_valid(const demo_transition_t *transition,
@@ -191,7 +203,8 @@ static int q_pretrain_cmd(int argc, char **argv)
 
     if (count == 0U)
     {
-        rt_kprintf("[Q] no demonstration data\n");
+        rt_kprintf("[Q] no demonstration data; run the M33 maze demo "
+                   "first and check demo_stats\n");
         rt_mutex_take(&s_training_lock, RT_WAITING_FOREVER);
         s_ui_state.phase = Q_TRAINING_UI_READY;
         ui_state_publish_locked();
@@ -516,9 +529,9 @@ static int q_reset_cmd(int argc, char **argv)
         rt_kprintf("Usage: q_reset\n");
         return -RT_EINVAL;
     }
-    if (random_baseline_is_busy() || q_training_reset() != RT_EOK)
+    if (q_training_reset() != RT_EOK)
     {
-        rt_kprintf("[Q] training busy\n");
+        rt_kprintf("[Q] algorithm task is busy\n");
         return -RT_EBUSY;
     }
     rt_kprintf("[Q] reset complete\n");

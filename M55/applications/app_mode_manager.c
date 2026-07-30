@@ -17,6 +17,10 @@ const char *app_mode_name(app_mode_t mode)
         return "INFER";
     case APP_MODE_COMPARE:
         return "COMPARE";
+    case APP_MODE_DQN_TRAIN:
+        return "DQN_TRAIN";
+    case APP_MODE_DQN_INFER:
+        return "DQN_INFER";
     default:
         return "UNKNOWN";
     }
@@ -66,7 +70,7 @@ static int maze_mode_cmd(int argc, char **argv)
     }
     if (argc != 2)
     {
-        rt_kprintf("Usage: maze_mode [demo|train|infer|compare]\n");
+        rt_kprintf("Usage: maze_mode [demo|train|infer|compare|dqn_train|dqn_infer]\n");
         return -RT_EINVAL;
     }
 
@@ -86,9 +90,17 @@ static int maze_mode_cmd(int argc, char **argv)
     {
         mode = APP_MODE_COMPARE;
     }
+    else if (strcmp(argv[1], "dqn_train") == 0)
+    {
+        mode = APP_MODE_DQN_TRAIN;
+    }
+    else if (strcmp(argv[1], "dqn_infer") == 0)
+    {
+        mode = APP_MODE_DQN_INFER;
+    }
     else
     {
-        rt_kprintf("Usage: maze_mode [demo|train|infer|compare]\n");
+        rt_kprintf("Usage: maze_mode [demo|train|infer|compare|dqn_train|dqn_infer]\n");
         return -RT_EINVAL;
     }
 

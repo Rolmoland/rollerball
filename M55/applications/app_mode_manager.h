@@ -9,6 +9,8 @@ typedef enum
     APP_MODE_TRAIN,
     APP_MODE_INFER,
     APP_MODE_COMPARE,
+    APP_MODE_DQN_TRAIN,
+    APP_MODE_DQN_INFER,
     APP_MODE_COUNT,
 } app_mode_t;
 

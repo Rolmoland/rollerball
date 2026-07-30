@@ -62,6 +62,35 @@ static void set_status_text(void)
                           s_demo_count);
 }
 
+static const char *random_status_text(
+    const random_baseline_ui_state_t *state)
+{
+    if (state->phase == RANDOM_BASELINE_UI_RUNNING)
+    {
+        return "运行中";
+    }
+    if (state->phase == RANDOM_BASELINE_UI_COMPLETE)
+    {
+        return "完成";
+    }
+    return "就绪";
+}
+
+static void set_random_text(const random_baseline_ui_state_t *state)
+{
+    lv_label_set_text_fmt(s_status_label, "随机策略  %s  %s",
+                          random_status_text(state),
+                          active_map_name());
+    lv_label_set_text_fmt(s_stats_label,
+                          "回合 %lu/%lu\n"
+                          "成功 %lu\n"
+                          "平均步数 %u",
+                          (unsigned long)state->current_episode,
+                          (unsigned long)state->target_episodes,
+                          (unsigned long)state->successful_episodes,
+                          (unsigned int)state->average_success_steps);
+}
+
 static const char *training_status_text(const q_training_ui_state_t *state)
 {
     if (state->phase == Q_TRAINING_UI_PRETRAIN)
@@ -426,6 +455,12 @@ static void render_current_mode(rt_bool_t mode_changed,
     if (s_mode_state.mode == APP_MODE_DEMO)
     {
         render_physical_state();
+    }
+    else if (s_mode_state.mode == APP_MODE_RANDOM)
+    {
+        ball_ui_set_cell_locked(s_start_x, s_start_y);
+        set_random_text(&s_random_state);
+        hide_complete_panel();
     }
     else if (s_mode_state.mode == APP_MODE_TRAIN)
     {
@@ -798,6 +833,10 @@ void maze_ui_set_demo_count(rt_uint16_t count)
     if (s_mode_state.mode == APP_MODE_DEMO)
     {
         set_status_text();
+    }
+    else if (s_mode_state.mode == APP_MODE_RANDOM)
+    {
+        set_random_text(&s_random_state);
     }
     else if (s_mode_state.mode == APP_MODE_TRAIN)
     {

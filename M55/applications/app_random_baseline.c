@@ -236,7 +236,7 @@ static int random_run_cmd(int argc, char **argv)
         return -RT_EBUSY;
     }
 
-    app_mode_set(APP_MODE_COMPARE);
+    app_mode_set(APP_MODE_RANDOM);
     rt_mutex_take(&s_random_lock, RT_WAITING_FOREVER);
     s_ui_state.phase = RANDOM_BASELINE_UI_RUNNING;
     s_ui_state.current_episode = 0U;
@@ -314,7 +314,7 @@ static int random_reset_cmd(int argc, char **argv)
         return -RT_EBUSY;
     }
 
-    app_mode_set(APP_MODE_COMPARE);
+    app_mode_set(APP_MODE_RANDOM);
     rt_kprintf("[RANDOM] reset complete\n");
     return RT_EOK;
 }

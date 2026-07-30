@@ -6,6 +6,7 @@
 typedef enum
 {
     APP_MODE_DEMO = 0,
+    APP_MODE_RANDOM,
     APP_MODE_TRAIN,
     APP_MODE_INFER,
     APP_MODE_COMPARE,

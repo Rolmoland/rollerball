@@ -5,6 +5,7 @@
 #include "app_demo_collector.h"
 #include "app_dqn_training.h"
 #include "app_maze_ui.h"
+#include "app_mode_manager.h"
 #include "app_q_training.h"
 #include "app_random_baseline.h"
 #include "module_maze_env.h"
@@ -110,6 +111,7 @@ static int commit_staged_map(void)
 
     demo_collector_clear();
     maze_ui_set_demo_count(0U);
+    app_mode_set(APP_MODE_DEMO);
     s_load_active = RT_FALSE;
     s_received_rows = 0U;
 

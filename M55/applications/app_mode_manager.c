@@ -11,6 +11,8 @@ const char *app_mode_name(app_mode_t mode)
     {
     case APP_MODE_DEMO:
         return "DEMO";
+    case APP_MODE_RANDOM:
+        return "RANDOM";
     case APP_MODE_TRAIN:
         return "TRAIN";
     case APP_MODE_INFER:
@@ -70,13 +72,17 @@ static int maze_mode_cmd(int argc, char **argv)
     }
     if (argc != 2)
     {
-        rt_kprintf("Usage: maze_mode [demo|train|infer|compare|dqn_train|dqn_infer]\n");
+        rt_kprintf("Usage: maze_mode [demo|random|train|infer|compare|dqn_train|dqn_infer]\n");
         return -RT_EINVAL;
     }
 
     if (strcmp(argv[1], "demo") == 0)
     {
         mode = APP_MODE_DEMO;
+    }
+    else if (strcmp(argv[1], "random") == 0)
+    {
+        mode = APP_MODE_RANDOM;
     }
     else if (strcmp(argv[1], "train") == 0)
     {
@@ -100,7 +106,7 @@ static int maze_mode_cmd(int argc, char **argv)
     }
     else
     {
-        rt_kprintf("Usage: maze_mode [demo|train|infer|compare|dqn_train|dqn_infer]\n");
+        rt_kprintf("Usage: maze_mode [demo|random|train|infer|compare|dqn_train|dqn_infer]\n");
         return -RT_EINVAL;
     }
 
